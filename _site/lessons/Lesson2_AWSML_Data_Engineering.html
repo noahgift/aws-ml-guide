@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18896442-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-18896442-3');
+</script>
+
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Lesson 2 - Data Engineering for Machine Learning on AWS</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="https://noahgift.github.io/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html">
+  <link rel="alternate" type="application/rss+xml" title="AWS Certified Machine Learning-Specialty (ML-S) Guide" href="https://noahgift.github.io/aws-ml-guide/feed.xml">
+
+  <meta property="og:url"         content="https://noahgift.github.io/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Lesson 2 - Data Engineering for Machine Learning on AWS" />
+<meta property="og:description" content="" />
+<meta property="og:image"       content="" />
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":
+    "https://noahgift.github.io/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html",
+  "headline":
+    "Lesson 2 - Data Engineering for Machine Learning on AWS",
+  "datePublished":
+    "2019-03-18T12:56:13-07:00",
+  "dateModified":
+    "2019-03-18T12:56:13-07:00",
+  "description":
+    "",
+  "author": {
+    "@type": "Person",
+    "name": "Noah gift"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://noahgift.github.io/aws-ml-guide",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://noahgift.github.io/aws-ml-guide",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aws-ml-guide/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    CommonHTML: {
+        linebreaks: {
+            automatic: true,
+        },
+    },
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML' async></script>
+
+  <!-- DOM updating function -->
+  <script>
+const runWhenDOMLoaded = cb => {
+  if (document.readyState != 'loading') {
+    cb()
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', cb)
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState == 'complete') cb()
+    })
+  }
+}
+
+// Helper function to init things quickly
+initFunction = function(myfunc) {
+  runWhenDOMLoaded(myfunc);
+  document.addEventListener('turbolinks:load', myfunc);
+};
+</script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/aws-ml-guide';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="/aws-ml-guide/assets/js/anchor.min.js"  type="text/javascript"></script>
+  <script>
+
+initFunction(function () {
+    anchors.add("main h1, main h2, main h3, main h4")
+});
+
+</script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="/aws-ml-guide/assets/js/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  <script src="https://unpkg.com/nbinteract-core" async></script>
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+  <!-- Google analytics -->
+  <script src="/aws-ml-guide/assets/js/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  <script>
+/**
+ * Set up copy/paste for code blocks
+ */
+const codeCellId = index => `codecell${index}`
+
+const clipboardButton = id =>
+  `<a class="btn copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#${id}">
+    <img src="/aws-ml-guide/assets/images/copy-button.svg" alt="Copy to clipboard">
+  </a>`
+
+// Clears selected text since ClipboardJS will select the text when copying
+const clearSelection = () => {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges()
+  } else if (document.selection) {
+    document.selection.empty()
+  }
+}
+
+// Changes tooltip text for two seconds, then changes it back
+const temporarilyChangeTooltip = (el, newText) => {
+  const oldText = el.getAttribute('data-tooltip')
+  el.setAttribute('data-tooltip', newText)
+  setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
+}
+
+const addCopyButtonToCodeCells = () => {
+  // If ClipboardJS hasn't loaded, wait a bit and try again. This
+  // happens because we load ClipboardJS asynchronously.
+  if (window.ClipboardJS === undefined) {
+    setTimeout(addCopyButtonToCodeCells, 250)
+    return
+  }
+
+  const codeCells = document.querySelectorAll('div.highlighter-rouge:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.querySelector(`pre#${id} + a`) == null) {
+      codeCell.insertAdjacentHTML('afterend', clipboardButton(id));
+    }
+  })
+
+  const clipboard = new ClipboardJS('.copybtn')
+  clipboard.on('success', event => {
+    clearSelection()
+    temporarilyChangeTooltip(event.trigger, 'Copied!')
+  })
+
+  clipboard.on('error', event => {
+    temporarilyChangeTooltip(event.trigger, 'Failed to copy')
+  })
+
+  // Get rid of clipboard before the next page visit to avoid memory leak
+  document.addEventListener('turbolinks:before-visit', () =>
+    clipboard.destroy()
+  )
+}
+
+initFunction(addCopyButtonToCodeCells);
+</script>
+
+  <!-- Hide cell code -->
+  
+<script>
+/**
+Add buttons to hide code cells
+*/
+
+
+var setCodeCellVisibility = function(inputField, kind) {
+    // Update the image and class for hidden
+    var id = inputField.getAttribute('data-id');
+    var codeCell = document.querySelector(`#${id}`);
+
+    if (kind === "visible") {
+        codeCell.classList.remove('hidden');
+        inputField.checked = true;
+    } else {
+        codeCell.classList.add('hidden');
+        inputField.checked = false;
+    }
+}
+
+var toggleCodeCellVisibility = function (event) {
+    // The label is clicked, and now we decide what to do based on the input field's clicked status
+    if (event.target.tagName === "LABEL") {
+        var inputField = event.target.previousElementSibling;
+    } else {
+        // It is the span inside the target
+        var inputField = event.target.parentElement.previousElementSibling;
+    }
+
+    if (inputField.checked === true) {
+        setCodeCellVisibility(inputField, "visible");
+    } else {
+        setCodeCellVisibility(inputField, "hidden");
+    }
+}
+
+
+// Button constructor
+const hideCodeButton = id => `<input class="hidebtn" type="checkbox" id="hidebtn${id}" data-id="${id}"><label title="Toggle cell" for="hidebtn${id}" class="plusminus"><span class="pm_h"></span><span class="pm_v"></span></label>`
+
+var addHideButton = function () {
+  // If a hide button is already added, don't add another
+  if (document.querySelector('div.hidecode input') !== null) {
+      return;
+  }
+
+  // Find the input cells and add a hide button
+  document.querySelectorAll('div.input_area div.highlight').forEach(function (item, index) {
+    if (!item.parentElement.classList.contains("hidecode")) {
+        // Skip the cell if it doesn't have a hidecode class
+        return;
+    }
+
+    const id = codeCellId(index)
+    item.setAttribute('id', id);
+    item.insertAdjacentHTML('afterend', hideCodeButton(id))
+
+    // Set up the visibility toggle
+    hideLink = document.querySelector(`#${id} + input + label`);
+    hideLink.addEventListener('click', toggleCodeCellVisibility)
+  });
+}
+
+
+// Initialize the hide buttos
+var initHiddenCells = function () {
+    // Add hide buttons to the cells
+    addHideButton();
+
+    // Toggle the code cells that should be hidden
+    document.querySelectorAll('div.hidecode input').forEach(function (item) {
+        setCodeCellVisibility(item, 'hidden');
+        item.checked = true;
+    })
+}
+
+initFunction(initHiddenCells);
+
+</script>
+
+
+  <!-- Load custom website scripts -->
+  <script src="/aws-ml-guide/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/aws-ml-guide/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="/aws-ml-guide/assets/js/lunr/lunr.min.js" type="text/javascript"></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+</head>
+
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://paiml.com"><img src="/aws-ml-guide/images/logo.png" class="textbook_logo" id="sidebar-logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/intro.html"
+        >
+          
+          Home
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="https://github.com/noahgift/aws-ml-guide"
+        >
+          
+          GitHub repository
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__chapter"><a class="c-sidebar__entry" href="/aws-ml-guide/search.html">Search</a></li>
+        
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/lessons/lessons.html"
+        >
+          
+          Lessons
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html"
+                >
+                  
+                  Lesson 1 - AWS Machine Learning Certification-Overview
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry c-sidebar__entry--active"
+                  href="/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html"
+                >
+                  
+                  Lesson 2 - Data Engineering for Machine Learning on AWS
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson3_AWSML_Exploratory_Data_Analysis.html"
+                >
+                  
+                  Lesson 3 - Amazon Machine Learning Exploratory Data Analysis
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html"
+                >
+                  
+                  Lesson 4 - Amazon Machine Learning Modeling
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson5_AWSML_Operationalization.html"
+                >
+                  
+                  Lesson 5 - Amazon Machine Learning Operationalization
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson6_AWSML_Production_ML_App.html"
+                >
+                  
+                  Lesson 6 - Amazon Machine Learning Production Machine Learning Applications
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html"
+                >
+                  
+                  Lesson 7 - Amazon Machine Learning Case Studies
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">A product of <a href="https://paiml.com">Pragmatic AI Labs</a></p>
+</nav>
+
+      
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#pragmatic-ai-labs">Pragmatic AI Labs</a></li>
+  <li><a href="#load-aws-api-keys">Load AWS API Keys</a>
+    <ul>
+      <li><a href="#mount-gdrive">Mount GDrive</a></li>
+      <li><a href="#install-boto">Install Boto</a></li>
+      <li><a href="#create-api-config">Create API Config</a></li>
+      <li><a href="#test-comprehend-api-call">Test Comprehend API Call</a></li>
+    </ul>
+  </li>
+  <li><a href="#21-data-ingestion-concepts">2.1 Data Ingestion Concepts</a>
+    <ul>
+      <li><a href="#data-lakes">Data Lakes</a></li>
+      <li><a href="#kinesis-streaming">Kinesis (STREAMING)</a></li>
+      <li><a href="#aws-batch-batch">AWS Batch (BATCH)</a></li>
+      <li><a href="#lambda-events">Lambda (EVENTS)</a></li>
+      <li><a href="#using-step-functions-with-aws">Using Step functions with AWS</a></li>
+    </ul>
+  </li>
+  <li><a href="#22-data-cleaning-and-preparation">2.2 Data Cleaning and Preparation</a>
+    <ul>
+      <li><a href="#ensuring-high-quality-data">Ensuring High Quality Data</a></li>
+      <li><a href="#dealing-with-missing-values">Dealing with missing values</a></li>
+      <li><a href="#cleaning-wikipedia-handle-example">Cleaning Wikipedia Handle Example</a></li>
+      <li><a href="#related-aws-services">Related AWS Services</a></li>
+    </ul>
+  </li>
+  <li><a href="#23-data-storage-concepts">2.3 Data Storage Concepts</a>
+    <ul>
+      <li><a href="#database-overview">Database Overview</a></li>
+      <li><a href="#using-aws-dynamodb">Using AWS DynamoDB</a></li>
+      <li><a href="#redshift">Redshift</a></li>
+    </ul>
+  </li>
+  <li><a href="#24-learn-etl-solutions-extract-transform-load">2.4 Learn ETL Solutions (Extract-Transform-Load)</a>
+    <ul>
+      <li><a href="#aws-glue">AWS Glue</a></li>
+      <li><a href="#emr">EMR</a></li>
+      <li><a href="#athena">Athena</a></li>
+      <li><a href="#data-pipeline">Data Pipeline</a></li>
+    </ul>
+  </li>
+  <li><a href="#25-batch-vs-streaming-data">2.5 Batch vs Streaming Data</a>
+    <ul>
+      <li><a href="#impact-on-ml-pipeline">Impact on ML Pipeline</a></li>
+      <li><a href="#batch">Batch</a></li>
+      <li><a href="#streaming">Streaming</a></li>
+    </ul>
+  </li>
+  <li><a href="#26-data-security">2.6 Data Security</a>
+    <ul>
+      <li><a href="#aws-kms-key-management-service">AWS KMS (Key Management Service)</a></li>
+      <li><a href="#aws-cloud-trail">AWS Cloud Trail</a></li>
+      <li><a href="#other-aspects">Other Aspects</a></li>
+    </ul>
+  </li>
+  <li><a href="#27-data-backup-and-recovery">2.7 Data Backup and Recovery</a>
+    <ul>
+      <li><a href="#most-aws-services-have-snapshot-and-backup-capabilities">Most AWS Services Have Snapshot and Backup Capabilities</a></li>
+      <li><a href="#s3-backup-and-recovery">S3 Backup and Recovery</a></li>
+      <li><a href="#demo-s3-snapshot-demo">[Demo] S3 Snapshot Demo</a></li>
+    </ul>
+  </li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            <div class="c-sidebar-toggle">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <button
+    id="js-sidebar-toggle"
+    class="hamburger hamburger--arrowalt is-active"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+    <span class="c-sidebar-toggle__label">Toggle Sidebar</span>
+  </button>
+</div>
+
+            
+<div class="buttons">
+<a href="/aws-ml-guide/content/lessons/Lesson2_AWSML_Data_Engineering.ipynb" download>
+<button id="interact-button-download" class="interact-button">Download</button>
+</a>
+
+
+
+
+
+</div>
+
+
+            <div class="c-textbook__content">
+              <p><a href="https://colab.research.google.com/github/noahgift/aws-ml-guide/blob/master/Lesson2_AWSML_Data_Engineering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+<h1 id="lesson-2-data-engineering-for-ml-on-aws">Lesson 2 Data Engineering for ML on AWS</h1>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_02_00">Watch Lesson 2:  Data Engineering for ML on AWS Video</a></p>
+
+<h2 id="pragmatic-ai-labs">Pragmatic AI Labs</h2>
+
+<p><img src="https://paiml.com/images/logo_with_slogan_white_background.png" alt="alt text" /></p>
+
+<p>This notebook was produced by <a href="https://paiml.com/">Pragmatic AI Labs</a>.  You can continue learning about these topics by:</p>
+
+<ul>
+  <li>Buying a copy of <a href="http://www.informit.com/store/pragmatic-ai-an-introduction-to-cloud-based-machine-9780134863863">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Informit.</li>
+  <li>Buying a copy of  <a href="https://www.amazon.com/Pragmatic-AI-Introduction-Cloud-Based-Learning/dp/0134863860">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Amazon</li>
+  <li>Reading an online copy of <a href="https://www.safaribooksonline.com/library/view/pragmatic-ai-an/9780134863924/">Pragmatic AI:Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a></li>
+  <li>Watching video <a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118">Essential Machine Learning and AI with Python and Jupyter Notebook-Video-SafariOnline</a> on Safari Books Online.</li>
+  <li>Watching video <a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597">AWS Certified Machine Learning-Speciality</a></li>
+  <li>Purchasing video <a href="http://www.informit.com/store/essential-machine-learning-and-ai-with-python-and-jupyter-9780135261095">Essential Machine Learning and AI with Python and Jupyter Notebook- Purchase Video</a></li>
+  <li>Viewing more content at <a href="https://noahgift.com/">noahgift.com</a></li>
+</ul>
+
+<h2 id="load-aws-api-keys">Load AWS API Keys</h2>
+
+<p>Put keys in local or remote GDrive:</p>
+
+<p><code class="highlighter-rouge">cp ~/.aws/credentials /Users/myname/Google\ Drive/awsml/</code></p>
+
+<h3 id="mount-gdrive">Mount GDrive</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from google.colab import drive
+drive.mount('/content/gdrive', force_remount=True)
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os;os.listdir("/content/gdrive/My Drive/awsml")
+</code></pre></div></div>
+
+<h3 id="install-boto">Install Boto</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip -q install boto3
+
+</code></pre></div></div>
+
+<h3 id="create-api-config">Create API Config</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!mkdir -p ~/.aws &amp;&amp;\
+  cp /content/gdrive/My\ Drive/awsml/credentials ~/.aws/credentials 
+</code></pre></div></div>
+
+<h3 id="test-comprehend-api-call">Test Comprehend API Call</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is smoke in San Francisco"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<h2 id="21-data-ingestion-concepts">2.1 Data Ingestion Concepts</h2>
+
+<h3 id="data-lakes">Data Lakes</h3>
+
+<p><strong>Central Repository</strong> for all data at any scale</p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49777724-8aef8300-fcb6-11e8-981e-96d14498a801.png" alt="data_lake" /></p>
+
+<h4 id="aws-lake-formation">AWS Lake Formation</h4>
+
+<ul>
+  <li>New Service Announced at Reinvent 2018</li>
+  <li>Build a secure lake in days…<strong>not months</strong></li>
+  <li>Enforce security policies</li>
+  <li>Gain and manage insights</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49777834-f9ccdc00-fcb6-11e8-84a0-7295a0c69a15.png" alt="aws_lake" /></p>
+
+<h3 id="kinesis-streaming">Kinesis (STREAMING)</h3>
+
+<p><strong>Solves Three Key Problems</strong></p>
+
+<ul>
+  <li>Time-series Analytics</li>
+  <li>Real-time Dashboards</li>
+  <li>Real-time Metrics</li>
+</ul>
+
+<h4 id="kinesis-analytics-workflow">Kinesis Analytics Workflow</h4>
+<p><img src="https://user-images.githubusercontent.com/58792/49440264-02ce2280-f778-11e8-9d7e-149819e74807.png" alt="Kinesis Analytics" /></p>
+
+<h4 id="kinesis-real-time-log-analytics-example">Kinesis Real-Time Log Analytics Example</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49440433-7cfea700-f778-11e8-8cd5-55999cb7713c.png" alt="Real-Time Log Analytics" /></p>
+
+<h4 id="kinesis-ad-tech-pipeline">Kinesis Ad Tech Pipeline</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49441021-285c2b80-f77a-11e8-82e2-da9006dc4c6d.png" alt="Ad Tech Pipeline" /></p>
+
+<h4 id="kinesis-iot">Kinesis IoT</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49441101-5e011480-f77a-11e8-9727-4f7706361a08.png" alt="Kinesis IoT" /></p>
+
+<h4 id="demo-kinesis">[Demo] Kinesis</h4>
+
+<h3 id="aws-batch-batch">AWS Batch (BATCH)</h3>
+
+<p>Example could be Financial Service Trade Analysis</p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49778503-64334b80-fcba-11e8-85e7-dcdbfe473cd9.png" alt="financial_services_trade" /></p>
+
+<h4 id="using-aws-batch-for-ml-jobs">Using AWS Batch for ML Jobs</h4>
+
+<ul>
+  <li><em><a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118/9780135261118-EMLA_01_11_06">Watch Video Lesson 11.6:  Use AWS Batch for ML Jobs</a></em></li>
+</ul>
+
+<p>https://aws.amazon.com/batch/</p>
+
+<p><img src="https://d1.awsstatic.com/Test%20Images/Kate%20Test%20Images/Dilithium-Diagrams_Visual-Effects-Rendering.ad9c0479c3772c67953e96ef8ae76a5095373d81.png" alt="alt text" /></p>
+
+<p>Example submissions tool</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@cli.group</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="s">"""Run AWS Batch"""</span>
+
+<span class="nd">@run.command</span><span class="p">(</span><span class="s">"submit"</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s">"--queue"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">"first-run-job-queue"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"Batch Queue"</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s">"--jobname"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">"1"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"Name of Job"</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s">"--jobdef"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">"test"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"Job Definition"</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s">"--cmd"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s">"uname"</span><span class="p">],</span> <span class="n">help</span><span class="o">=</span><span class="s">"Container Override Commands"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">jobname</span><span class="p">,</span> <span class="n">jobdef</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
+    <span class="s">"""Submit a job"""</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">submit_job</span><span class="p">(</span>
+        <span class="n">job_name</span><span class="o">=</span><span class="n">jobname</span><span class="p">,</span>
+        <span class="n">job_queue</span><span class="o">=</span><span class="n">queue</span><span class="p">,</span>
+        <span class="n">job_definition</span><span class="o">=</span><span class="n">jobdef</span><span class="p">,</span>
+        <span class="n">command</span><span class="o">=</span><span class="n">cmd</span>
+    <span class="p">)</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s">"CLI:  Run Job Called"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<h3 id="lambda-events">Lambda (EVENTS)</h3>
+
+<ul>
+  <li>Serverless</li>
+  <li>Used in most if not all ML Platforms</li>
+  <li>DeepLense</li>
+  <li>Sagemaker</li>
+  <li>S3 Events</li>
+</ul>
+
+<h4 id="starting-development-with-aws-python-lambda-development-with-chalice">Starting development with AWS Python Lambda development with Chalice</h4>
+
+<ul>
+  <li><em><a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118/9780135261118-EMLA_01_11_03">Watch Video Lesson 11.3:  Use AWS Lambda development with Chalice</a></em></li>
+</ul>
+
+<p><strong><em>Demo on Sagemaker Terminal</em></strong></p>
+
+<p>https://github.com/aws/chalice</p>
+
+<p><em>Hello World Example:</em></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">chalice</span>
+<span class="err">$</span> <span class="n">chalice</span> <span class="n">new</span><span class="o">-</span><span class="n">project</span> <span class="n">helloworld</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">helloworld</span>
+<span class="err">$</span> <span class="n">cat</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+
+<span class="kn">from</span> <span class="nn">chalice</span> <span class="kn">import</span> <span class="n">Chalice</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Chalice</span><span class="p">(</span><span class="n">app_name</span><span class="o">=</span><span class="s">"helloworld"</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"hello"</span><span class="p">:</span> <span class="s">"world"</span><span class="p">}</span>
+
+<span class="err">$</span> <span class="n">chalice</span> <span class="n">deploy</span>
+<span class="o">...</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">endpoint</span><span class="o">/</span><span class="n">dev</span>
+
+<span class="err">$</span> <span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">endpoint</span><span class="o">/</span><span class="n">api</span>
+<span class="p">{</span><span class="s">"hello"</span><span class="p">:</span> <span class="s">"world"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>References:</p>
+
+<p><a href="https://github.com/noahgift/web_scraping_python">Serverless Web Scraping Project</a></p>
+
+<h4 id="demo-deploying-hello-world-lambda-function">[Demo] Deploying Hello World Lambda Function</h4>
+
+<h3 id="using-step-functions-with-aws">Using Step functions with AWS</h3>
+
+<ul>
+  <li><em><a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118/9780135261118-EMLA_01_11_05">Watch Video Lesson 11.5:  Use AWS Step Functions</a></em></li>
+</ul>
+
+<p>https://aws.amazon.com/step-functions/</p>
+
+<p><img src="https://d1.awsstatic.com/product-marketing/Step%20Functions/AmazonCloudWatchUpdated4.a57e968b08739e170aa504feed8db3761de21e60.png" alt="Step Functions" /></p>
+
+<p>Example Project:</p>
+
+<p>https://github.com/noahgift/web_scraping_python</p>
+
+<p>[Demo] Step Function</p>
+
+<h2 id="22-data-cleaning-and-preparation">2.2 Data Cleaning and Preparation</h2>
+
+<h3 id="ensuring-high-quality-data">Ensuring High Quality Data</h3>
+
+<ul>
+  <li>Validity</li>
+  <li>Accuracy</li>
+  <li>Completeness</li>
+  <li>Consistency</li>
+  <li>Uniformity</li>
+</ul>
+
+<h3 id="dealing-with-missing-values">Dealing with missing values</h3>
+
+<p>Often easy way is to drop missing values</p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pandas as pd
+df = pd.read_csv("https://raw.githubusercontent.com/noahgift/real_estate_ml/master/data/Zip_Zhvi_SingleFamilyResidence.csv")
+df.isnull().sum()
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RegionID         1
+RegionName       1
+City             1
+State            1
+Metro         1140
+CountyName       1
+SizeRank         1
+1996-04       4440
+1996-05       4309
+1996-06       4285
+1996-07       4278
+1996-08       4265
+1996-09       4265
+1996-10       4265
+1996-11       4258
+1996-12       4258
+1997-01       4212
+1997-02       3588
+1997-03       3546
+1997-04       3546
+1997-05       3545
+1997-06       3543
+1997-07       3543
+1997-08       3357
+1997-09       3355
+1997-10       3353
+1997-11       3347
+1997-12       3341
+1998-01       3317
+1998-02       3073
+              ... 
+2015-04         13
+2015-05          1
+2015-06          1
+2015-07          1
+2015-08          1
+2015-09          2
+2015-10          3
+2015-11          1
+2015-12          1
+2016-01          1
+2016-02         19
+2016-03         19
+2016-04         19
+2016-05         19
+2016-06          1
+2016-07          1
+2016-08          1
+2016-09          1
+2016-10          1
+2016-11          1
+2016-12         51
+2017-01          1
+2017-02          1
+2017-03          1
+2017-04          1
+2017-05          1
+2017-06          1
+2017-07          1
+2017-08          1
+2017-09          1
+Length: 265, dtype: int64
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df2 = df.dropna()
+df2.isnull().sum()
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RegionID      0
+RegionName    0
+City          0
+State         0
+Metro         0
+CountyName    0
+SizeRank      0
+1996-04       0
+1996-05       0
+1996-06       0
+1996-07       0
+1996-08       0
+1996-09       0
+1996-10       0
+1996-11       0
+1996-12       0
+1997-01       0
+1997-02       0
+1997-03       0
+1997-04       0
+1997-05       0
+1997-06       0
+1997-07       0
+1997-08       0
+1997-09       0
+1997-10       0
+1997-11       0
+1997-12       0
+1998-01       0
+1998-02       0
+             ..
+2015-04       0
+2015-05       0
+2015-06       0
+2015-07       0
+2015-08       0
+2015-09       0
+2015-10       0
+2015-11       0
+2015-12       0
+2016-01       0
+2016-02       0
+2016-03       0
+2016-04       0
+2016-05       0
+2016-06       0
+2016-07       0
+2016-08       0
+2016-09       0
+2016-10       0
+2016-11       0
+2016-12       0
+2017-01       0
+2017-02       0
+2017-03       0
+2017-04       0
+2017-05       0
+2017-06       0
+2017-07       0
+2017-08       0
+2017-09       0
+Length: 265, dtype: int64
+</code></pre></div></div>
+
+<h3 id="cleaning-wikipedia-handle-example">Cleaning Wikipedia Handle Example</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+Example Route To Construct:
+https://wikimedia.org/api/rest_v1/ +
+metrics/pageviews/per-article/ +
+en.wikipedia/all-access/user/ +
+LeBron_James/daily/2015070100/2017070500 +
+"""</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">wikipedia</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span>\
+ <span class="s">"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user"</span>
+
+<span class="k">def</span> <span class="nf">construct_url</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="s">"""Constructs a URL based on arguments
+    Should construct the following URL:
+    /LeBron_James/daily/2015070100/2017070500 
+    """</span>
+
+    
+    <span class="n">urls</span>  <span class="o">=</span> <span class="p">[</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">]</span>
+    <span class="n">constructed</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">'/'</span><span class="p">,</span> <span class="n">urls</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">constructed</span>
+
+<span class="k">def</span> <span class="nf">query_wikipedia_pageviews</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">wikipedia_pageviews</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="s">"""Returns JSON"""</span>
+
+    <span class="n">constructed_url</span> <span class="o">=</span> <span class="n">construct_url</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">)</span>
+    <span class="n">pageviews</span> <span class="o">=</span> <span class="n">query_wikipedia_pageviews</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">constructed_url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pageviews</span>
+
+<span class="k">def</span> <span class="nf">wikipedia_2016</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">sleep</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="s">"""Retrieve pageviews for 2016"""</span> 
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">"SLEEP: {sleep}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sleep</span><span class="o">=</span><span class="n">sleep</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep</span><span class="p">)</span>
+    <span class="n">pageviews</span> <span class="o">=</span> <span class="n">wikipedia_pageviews</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="n">handle</span><span class="p">,</span> 
+            <span class="n">period</span><span class="o">=</span><span class="s">"daily"</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s">"2016010100"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">"2016123100"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s">'items'</span> <span class="ow">in</span> <span class="n">pageviews</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"NO PAGEVIEWS: {handle}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">handle</span><span class="o">=</span><span class="n">handle</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">pageviews</span>
+
+<span class="k">def</span> <span class="nf">create_wikipedia_df</span><span class="p">(</span><span class="n">handles</span><span class="p">):</span>
+    <span class="s">"""Creates a Dataframe of Pageviews"""</span>
+
+    <span class="n">pageviews</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="p">[]</span>    
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">wikipedia_handles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">handle</span> <span class="ow">in</span> <span class="n">handles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">pageviews_record</span> <span class="o">=</span> <span class="n">wikipedia_2016</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pageviews_record</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">pageviews_record</span><span class="p">[</span><span class="s">'items'</span><span class="p">]:</span>
+            <span class="n">pageviews</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s">'views'</span><span class="p">])</span>
+            <span class="n">timestamps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s">'timestamp'</span><span class="p">])</span>
+            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">wikipedia_handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"names"</span><span class="p">:</span> <span class="n">names</span><span class="p">,</span>
+        <span class="s">"wikipedia_handles"</span><span class="p">:</span> <span class="n">wikipedia_handles</span><span class="p">,</span>
+        <span class="s">"pageviews"</span><span class="p">:</span> <span class="n">pageviews</span><span class="p">,</span>
+        <span class="s">"timestamps"</span><span class="p">:</span> <span class="n">timestamps</span> 
+    <span class="p">}</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>    
+
+
+<span class="k">def</span> <span class="nf">create_wikipedia_handle</span><span class="p">(</span><span class="n">raw_handle</span><span class="p">):</span>
+    <span class="s">"""Takes a raw handle and converts it to a wikipedia handle"""</span>
+
+    <span class="n">wikipedia_handle</span> <span class="o">=</span> <span class="n">raw_handle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">" "</span><span class="p">,</span> <span class="s">"_"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wikipedia_handle</span>
+
+<span class="k">def</span> <span class="nf">create_wikipedia_nba_handle</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="s">"""Appends basketball to link"""</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="s">" "</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">name</span><span class="p">,</span> <span class="s">"(basketball)"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+<span class="k">def</span> <span class="nf">wikipedia_current_nba_roster</span><span class="p">():</span>
+    <span class="s">"""Gets all links on wikipedia current roster page"""</span>
+
+    <span class="n">links</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">nba</span> <span class="o">=</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="s">"List_of_current_NBA_team_rosters"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">nba</span><span class="o">.</span><span class="n">links</span><span class="p">:</span>
+        <span class="n">links</span><span class="p">[</span><span class="n">link</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_wikipedia_handle</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">links</span>
+
+<span class="k">def</span> <span class="nf">guess_wikipedia_nba_handle</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s">"data/nba_2017_br.csv"</span><span class="p">):</span>
+    <span class="s">"""Attempt to get the correct wikipedia handle"""</span>
+
+    <span class="n">links</span> <span class="o">=</span> <span class="n">wikipedia_current_nba_roster</span><span class="p">()</span> 
+    <span class="n">nba</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">verified</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">guesses</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">nba</span><span class="p">[</span><span class="s">"Player"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Player: {player}, Link: {link} "</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player</span><span class="p">,</span>
+                 <span class="n">link</span><span class="o">=</span><span class="n">links</span><span class="p">[</span><span class="n">player</span><span class="p">]))</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">verified</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="n">links</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="c">#add wikipedia link</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"NO MATCH: {player}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player</span><span class="p">))</span>
+            <span class="n">guesses</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_wikipedia_handle</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">verified</span><span class="p">,</span> <span class="n">guesses</span>
+
+<span class="k">def</span> <span class="nf">validate_wikipedia_guesses</span><span class="p">(</span><span class="n">guesses</span><span class="p">):</span>
+    <span class="s">"""Validate guessed wikipedia accounts"""</span>
+
+    <span class="n">verified</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">wrong</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">guesses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">wikipedia</span><span class="o">.</span><span class="n">DisambiguationError</span><span class="p">,</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">PageError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="c">#try basketball suffix</span>
+            <span class="n">nba_handle</span> <span class="o">=</span> <span class="n">create_wikipedia_nba_handle</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">page</span> <span class="o">=</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">nba_handle</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"Initial wikipedia URL Failed: {error}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">))</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">wikipedia</span><span class="o">.</span><span class="n">DisambiguationError</span><span class="p">,</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">PageError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"Second Match Failure: {error}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">))</span>
+                <span class="n">wrong</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">link</span>
+                <span class="k">continue</span>
+        <span class="k">if</span> <span class="s">"NBA"</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">summary</span><span class="p">:</span>
+            <span class="n">verified</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">link</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"NO GUESS MATCH: {name}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">wrong</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">link</span>
+    <span class="k">return</span> <span class="n">verified</span><span class="p">,</span> <span class="n">wrong</span>
+
+<span class="k">def</span> <span class="nf">clean_wikipedia_handles</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s">"data/nba_2017_br.csv"</span><span class="p">):</span>
+    <span class="s">"""Clean Handles"""</span>
+
+    <span class="n">verified</span><span class="p">,</span> <span class="n">guesses</span> <span class="o">=</span> <span class="n">guess_wikipedia_nba_handle</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">verified_cleaned</span><span class="p">,</span> <span class="n">wrong</span> <span class="o">=</span> <span class="n">validate_wikipedia_guesses</span><span class="p">(</span><span class="n">guesses</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"WRONG Matches: {wrong}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wrong</span><span class="o">=</span><span class="n">wrong</span><span class="p">))</span>
+    <span class="n">handles</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">verified</span><span class="p">,</span> <span class="o">**</span><span class="n">verified_cleaned</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">handles</span>
+
+<span class="k">def</span> <span class="nf">nba_wikipedia_dataframe</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s">"data/nba_2017_br.csv"</span><span class="p">):</span>
+    <span class="n">handles</span> <span class="o">=</span> <span class="n">clean_wikipedia_handles</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">create_wikipedia_df</span><span class="p">(</span><span class="n">handles</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">create_wikipedia_csv</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s">"data/nba_2017_br.csv"</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">nba_wikipedia_dataframe</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"data/wikipedia_nba.csv"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">create_wikipedia_csv</span><span class="p">()</span> 
+</code></pre></div></div>
+
+<h3 id="related-aws-services">Related AWS Services</h3>
+
+<p>These services could all help prepare and clean data</p>
+
+<ul>
+  <li>AWS Glue</li>
+  <li>AWS Machine Learning</li>
+  <li>AWS Kinesis</li>
+  <li>AWS Lambda</li>
+  <li>AWS Sagemaker</li>
+</ul>
+
+<h2 id="23-data-storage-concepts">2.3 Data Storage Concepts</h2>
+
+<h3 id="database-overview">Database Overview</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/48925585-2214a800-ee7a-11e8-8546-767177679328.png" alt="Database Styles" /></p>
+
+<ul>
+  <li><a href="https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html">One size database doesn’t fit anyone</a></li>
+</ul>
+
+<h3 id="using-aws-dynamodb">Using AWS DynamoDB</h3>
+
+<ul>
+  <li><em><a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118/9780135261118-EMLA_01_11_04">Watch Video Lesson 11.4:  Use AWS DynamoDB</a></em></li>
+</ul>
+
+<p>https://aws.amazon.com/dynamodb/</p>
+
+<p><img src="https://d1.awsstatic.com/video-thumbs/dynamodb/AWS-online-games-wide.ada4247744e9be9a6d857b2e13b7eb78b18bf3a5.png" alt="alt text" /></p>
+
+<p>Query Example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">query_police_department_record_by_guid</span><span class="p">(</span><span class="n">guid</span><span class="p">):</span>
+    <span class="s">"""Gets one record in the PD table by guid
+    
+    In [5]: rec = query_police_department_record_by_guid(
+        "7e607b82-9e18-49dc-a9d7-e9628a9147ad"
+        )
+    
+    In [7]: rec
+    Out[7]: 
+    {'PoliceDepartmentName': 'Hollister',
+     'UpdateTime': 'Fri Mar  2 12:43:43 2018',
+     'guid': '7e607b82-9e18-49dc-a9d7-e9628a9147ad'}
+    """</span>
+    
+    <span class="n">db</span> <span class="o">=</span> <span class="n">dynamodb_resource</span><span class="p">()</span>
+    <span class="n">extra_msg</span> <span class="o">=</span> <span class="p">{</span><span class="s">"region_name"</span><span class="p">:</span> <span class="n">REGION</span><span class="p">,</span> <span class="s">"aws_service"</span><span class="p">:</span> <span class="s">"dynamodb"</span><span class="p">,</span> 
+        <span class="s">"police_department_table"</span><span class="p">:</span><span class="n">POLICE_DEPARTMENTS_TABLE</span><span class="p">,</span>
+        <span class="s">"guid"</span><span class="p">:</span><span class="n">guid</span><span class="p">}</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s">"Get PD record by GUID"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">extra_msg</span><span class="p">)</span>
+    <span class="n">pd_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="n">POLICE_DEPARTMENTS_TABLE</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">pd_table</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span>
+        <span class="n">Key</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">'guid'</span><span class="p">:</span> <span class="n">guid</span>
+            <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s">'Item'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="demo-dynamodb">[Demo] DynamoDB</h4>
+
+<h3 id="redshift">Redshift</h3>
+
+<ul>
+  <li>Data Warehouse Solution for AWS</li>
+  <li>Column Data Store (Great at counting large data)</li>
+</ul>
+
+<h2 id="24-learn-etl-solutions-extract-transform-load">2.4 Learn ETL Solutions (Extract-Transform-Load)</h2>
+
+<h3 id="aws-glue">AWS Glue</h3>
+
+<h4 id="aws-glue-is-fully-managed-etl-service">AWS Glue is fully managed ETL Service</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49441953-dff23d00-f77c-11e8-9065-dab53c47c345.png" alt="AWS Glue Screen" /></p>
+
+<h4 id="aws-glue-workflow">AWS Glue Workflow</h4>
+
+<ul>
+  <li>Build Data Catalog</li>
+  <li>Generate and Edit Transformations</li>
+  <li>Schedule and Run Jobs</li>
+</ul>
+
+<h4 id="demo-aws-glue">[DEMO] AWS Glue</h4>
+
+<h3 id="emr">EMR</h3>
+
+<ul>
+  <li>Can be used for large scale distributed data jobs</li>
+</ul>
+
+<h3 id="athena">Athena</h3>
+
+<ul>
+  <li>Can replace many ETL</li>
+  <li>Serverless</li>
+  <li>Built on Presto w/ SQL Support</li>
+  <li>Meant to query Data Lake</li>
+</ul>
+
+<h4 id="demo-athena">[DEMO] Athena</h4>
+
+<h3 id="data-pipeline">Data Pipeline</h3>
+
+<ul>
+  <li>create complex data processing workloads that are fault tolerant, repeatable, and highly available</li>
+</ul>
+
+<h4 id="demo-data-pipeline">[Demo] Data Pipeline</h4>
+
+<h2 id="25-batch-vs-streaming-data">2.5 Batch vs Streaming Data</h2>
+
+<h3 id="impact-on-ml-pipeline">Impact on ML Pipeline</h3>
+
+<ul>
+  <li>More control of model training in batch (can decide when to retrain)</li>
+  <li>Continuously retraining model could provide better prediction results or worse results</li>
+  <li>Did input stream suddenly get more users or less users?</li>
+  <li>Is there an A/B testing scenario?</li>
+</ul>
+
+<h3 id="batch">Batch</h3>
+
+<ul>
+  <li>Data is batched at intervals</li>
+  <li>Simplest approach to create predictions</li>
+  <li>Many Services on AWS Capable of Batch Processing</li>
+  <li>AWS Glue</li>
+  <li>AWS Data Pipeline</li>
+  <li>AWS Batch</li>
+  <li>EMR</li>
+</ul>
+
+<h3 id="streaming">Streaming</h3>
+
+<ul>
+  <li>Continously polled or pushed</li>
+  <li>More complex method of prediction</li>
+  <li>Many Services on AWS Capable of Streaming</li>
+  <li>Kinesis</li>
+  <li>IoT</li>
+</ul>
+
+<h2 id="26-data-security">2.6 Data Security</h2>
+
+<h3 id="aws-kms-key-management-service">AWS KMS (Key Management Service)</h3>
+
+<ul>
+  <li>Integrated with AWS Encryption SDK</li>
+  <li>CloudTrail gives independent view of who accessed encrypted data</li>
+</ul>
+
+<h3 id="aws-cloud-trail">AWS Cloud Trail</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49812752-f834ff80-fd1a-11e8-9ad6-bafa8e1b0779.png" alt="cloud_trail" /></p>
+
+<ul>
+  <li>enables governance, compliance, operational auditing</li>
+  <li>visibility into user and resource activity</li>
+  <li>security analysis and troubleshooting</li>
+  <li>security analysis and troubleshooting</li>
+</ul>
+
+<h4 id="demo-cloud-trail">[Demo] Cloud Trail</h4>
+
+<h3 id="other-aspects">Other Aspects</h3>
+
+<ul>
+  <li>IAM Roles</li>
+  <li>Security Groups</li>
+  <li>VPC</li>
+</ul>
+
+<h2 id="27-data-backup-and-recovery">2.7 Data Backup and Recovery</h2>
+
+<h3 id="most-aws-services-have-snapshot-and-backup-capabilities">Most AWS Services Have Snapshot and Backup Capabilities</h3>
+
+<ul>
+  <li>RDS</li>
+  <li>S3</li>
+  <li>DynamoDB</li>
+</ul>
+
+<h3 id="s3-backup-and-recovery">S3 Backup and Recovery</h3>
+
+<ul>
+  <li>S3 Snapshots</li>
+  <li>Amazon Glacier archive</li>
+</ul>
+
+<h3 id="demo-s3-snapshot-demo">[Demo] S3 Snapshot Demo</h3>
+
+
+              <nav class="c-page__nav">
+  
+    
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="/aws-ml-guide/lessons/Lesson1_AWSML_Overview">
+      〈 <span class="u-margin-right-tiny"></span> Lesson 1 - AWS Machine Learning Ce...
+    </a>
+  
+
+  
+    
+    <a id="js-page__nav__next" class="c-page__nav__next" href="/aws-ml-guide/lessons/Lesson3_AWSML_Exploratory_Data_Analysis">
+      Lesson 3 - Amazon Machine Learning... <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  
+</nav>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

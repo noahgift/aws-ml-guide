@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18896442-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-18896442-3');
+</script>
+
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Lesson 1 - AWS Machine Learning Certification-Overview</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="https://noahgift.github.io/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html">
+  <link rel="alternate" type="application/rss+xml" title="AWS Certified Machine Learning-Specialty (ML-S) Guide" href="https://noahgift.github.io/aws-ml-guide/feed.xml">
+
+  <meta property="og:url"         content="https://noahgift.github.io/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Lesson 1 - AWS Machine Learning Certification-Overview" />
+<meta property="og:description" content="" />
+<meta property="og:image"       content="" />
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":
+    "https://noahgift.github.io/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html",
+  "headline":
+    "Lesson 1 - AWS Machine Learning Certification-Overview",
+  "datePublished":
+    "2019-03-18T12:56:13-07:00",
+  "dateModified":
+    "2019-03-18T12:56:13-07:00",
+  "description":
+    "",
+  "author": {
+    "@type": "Person",
+    "name": "Noah gift"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://noahgift.github.io/aws-ml-guide",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://noahgift.github.io/aws-ml-guide",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aws-ml-guide/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    CommonHTML: {
+        linebreaks: {
+            automatic: true,
+        },
+    },
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML' async></script>
+
+  <!-- DOM updating function -->
+  <script>
+const runWhenDOMLoaded = cb => {
+  if (document.readyState != 'loading') {
+    cb()
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', cb)
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState == 'complete') cb()
+    })
+  }
+}
+
+// Helper function to init things quickly
+initFunction = function(myfunc) {
+  runWhenDOMLoaded(myfunc);
+  document.addEventListener('turbolinks:load', myfunc);
+};
+</script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/aws-ml-guide';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="/aws-ml-guide/assets/js/anchor.min.js"  type="text/javascript"></script>
+  <script>
+
+initFunction(function () {
+    anchors.add("main h1, main h2, main h3, main h4")
+});
+
+</script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="/aws-ml-guide/assets/js/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  <script src="https://unpkg.com/nbinteract-core" async></script>
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+  <!-- Google analytics -->
+  <script src="/aws-ml-guide/assets/js/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  <script>
+/**
+ * Set up copy/paste for code blocks
+ */
+const codeCellId = index => `codecell${index}`
+
+const clipboardButton = id =>
+  `<a class="btn copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#${id}">
+    <img src="/aws-ml-guide/assets/images/copy-button.svg" alt="Copy to clipboard">
+  </a>`
+
+// Clears selected text since ClipboardJS will select the text when copying
+const clearSelection = () => {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges()
+  } else if (document.selection) {
+    document.selection.empty()
+  }
+}
+
+// Changes tooltip text for two seconds, then changes it back
+const temporarilyChangeTooltip = (el, newText) => {
+  const oldText = el.getAttribute('data-tooltip')
+  el.setAttribute('data-tooltip', newText)
+  setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
+}
+
+const addCopyButtonToCodeCells = () => {
+  // If ClipboardJS hasn't loaded, wait a bit and try again. This
+  // happens because we load ClipboardJS asynchronously.
+  if (window.ClipboardJS === undefined) {
+    setTimeout(addCopyButtonToCodeCells, 250)
+    return
+  }
+
+  const codeCells = document.querySelectorAll('div.highlighter-rouge:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.querySelector(`pre#${id} + a`) == null) {
+      codeCell.insertAdjacentHTML('afterend', clipboardButton(id));
+    }
+  })
+
+  const clipboard = new ClipboardJS('.copybtn')
+  clipboard.on('success', event => {
+    clearSelection()
+    temporarilyChangeTooltip(event.trigger, 'Copied!')
+  })
+
+  clipboard.on('error', event => {
+    temporarilyChangeTooltip(event.trigger, 'Failed to copy')
+  })
+
+  // Get rid of clipboard before the next page visit to avoid memory leak
+  document.addEventListener('turbolinks:before-visit', () =>
+    clipboard.destroy()
+  )
+}
+
+initFunction(addCopyButtonToCodeCells);
+</script>
+
+  <!-- Hide cell code -->
+  
+<script>
+/**
+Add buttons to hide code cells
+*/
+
+
+var setCodeCellVisibility = function(inputField, kind) {
+    // Update the image and class for hidden
+    var id = inputField.getAttribute('data-id');
+    var codeCell = document.querySelector(`#${id}`);
+
+    if (kind === "visible") {
+        codeCell.classList.remove('hidden');
+        inputField.checked = true;
+    } else {
+        codeCell.classList.add('hidden');
+        inputField.checked = false;
+    }
+}
+
+var toggleCodeCellVisibility = function (event) {
+    // The label is clicked, and now we decide what to do based on the input field's clicked status
+    if (event.target.tagName === "LABEL") {
+        var inputField = event.target.previousElementSibling;
+    } else {
+        // It is the span inside the target
+        var inputField = event.target.parentElement.previousElementSibling;
+    }
+
+    if (inputField.checked === true) {
+        setCodeCellVisibility(inputField, "visible");
+    } else {
+        setCodeCellVisibility(inputField, "hidden");
+    }
+}
+
+
+// Button constructor
+const hideCodeButton = id => `<input class="hidebtn" type="checkbox" id="hidebtn${id}" data-id="${id}"><label title="Toggle cell" for="hidebtn${id}" class="plusminus"><span class="pm_h"></span><span class="pm_v"></span></label>`
+
+var addHideButton = function () {
+  // If a hide button is already added, don't add another
+  if (document.querySelector('div.hidecode input') !== null) {
+      return;
+  }
+
+  // Find the input cells and add a hide button
+  document.querySelectorAll('div.input_area div.highlight').forEach(function (item, index) {
+    if (!item.parentElement.classList.contains("hidecode")) {
+        // Skip the cell if it doesn't have a hidecode class
+        return;
+    }
+
+    const id = codeCellId(index)
+    item.setAttribute('id', id);
+    item.insertAdjacentHTML('afterend', hideCodeButton(id))
+
+    // Set up the visibility toggle
+    hideLink = document.querySelector(`#${id} + input + label`);
+    hideLink.addEventListener('click', toggleCodeCellVisibility)
+  });
+}
+
+
+// Initialize the hide buttos
+var initHiddenCells = function () {
+    // Add hide buttons to the cells
+    addHideButton();
+
+    // Toggle the code cells that should be hidden
+    document.querySelectorAll('div.hidecode input').forEach(function (item) {
+        setCodeCellVisibility(item, 'hidden');
+        item.checked = true;
+    })
+}
+
+initFunction(initHiddenCells);
+
+</script>
+
+
+  <!-- Load custom website scripts -->
+  <script src="/aws-ml-guide/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/aws-ml-guide/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="/aws-ml-guide/assets/js/lunr/lunr.min.js" type="text/javascript"></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+</head>
+
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://paiml.com"><img src="/aws-ml-guide/images/logo.png" class="textbook_logo" id="sidebar-logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/intro.html"
+        >
+          
+          Home
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="https://github.com/noahgift/aws-ml-guide"
+        >
+          
+          GitHub repository
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__chapter"><a class="c-sidebar__entry" href="/aws-ml-guide/search.html">Search</a></li>
+        
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/lessons/lessons.html"
+        >
+          
+          Lessons
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry c-sidebar__entry--active"
+                  href="/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html"
+                >
+                  
+                  Lesson 1 - AWS Machine Learning Certification-Overview
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html"
+                >
+                  
+                  Lesson 2 - Data Engineering for Machine Learning on AWS
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson3_AWSML_Exploratory_Data_Analysis.html"
+                >
+                  
+                  Lesson 3 - Amazon Machine Learning Exploratory Data Analysis
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html"
+                >
+                  
+                  Lesson 4 - Amazon Machine Learning Modeling
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson5_AWSML_Operationalization.html"
+                >
+                  
+                  Lesson 5 - Amazon Machine Learning Operationalization
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson6_AWSML_Production_ML_App.html"
+                >
+                  
+                  Lesson 6 - Amazon Machine Learning Production Machine Learning Applications
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html"
+                >
+                  
+                  Lesson 7 - Amazon Machine Learning Case Studies
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">A product of <a href="https://paiml.com">Pragmatic AI Labs</a></p>
+</nav>
+
+      
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#pragmatic-ai-labs">Pragmatic AI Labs</a></li>
+  <li><a href="#11-certification-overview">1.1 Certification Overview</a>
+    <ul>
+      <li><a href="#load-aws-api-keys">Load AWS API Keys</a></li>
+      <li><a href="#audience">Audience</a></li>
+      <li><a href="#validates-ability-to">Validates ability to:</a></li>
+      <li><a href="#recommended-aws-knowledge">Recommended AWS Knowledge</a></li>
+    </ul>
+  </li>
+  <li><a href="#12-exam-study-resources">1.2 Exam Study Resources</a>
+    <ul>
+      <li><a href="#official-aws-material">Official AWS Material</a></li>
+    </ul>
+  </li>
+  <li><a href="#13-review-exam-guide">1.3 Review Exam Guide</a>
+    <ul>
+      <li><a href="#domains-covered">Domains Covered</a></li>
+    </ul>
+  </li>
+  <li><a href="#14-exam-strategy">1.4 Exam Strategy</a>
+    <ul>
+      <li><a href="#official-exam-study-guide">Official Exam Study Guide</a></li>
+    </ul>
+  </li>
+  <li><a href="#15-best-practices-of-ml-on-aws">1.5 Best Practices of ML on AWS</a>
+    <ul>
+      <li><a href="#build-vs-buy">Build vs Buy</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#aws-sagemaker">AWS Sagemaker</a></li>
+      <li><a href="#aws-machine-learning">AWS Machine Learning</a></li>
+      <li><a href="#mxnet">MXNet</a></li>
+      <li><a href="#demo-aws-sagemaker">Demo AWS Sagemaker</a></li>
+      <li><a href="#demo-aws-ml-service">Demo AWS ML Service</a></li>
+    </ul>
+  </li>
+  <li><a href="#16-techniques-to-accelerate-hands-on-practice">1.6 Techniques to accelerate hands-on practice</a>
+    <ul>
+      <li><a href="#using-interactive-qwiklabs">Using Interactive QWIKLABS</a></li>
+      <li><a href="#using-aws-console-sagemaker-and-apis">Using AWS Console, Sagemaker and APIS</a></li>
+    </ul>
+  </li>
+  <li><a href="#17-understand-important-ml-related-services">1.7 Understand important ML related services</a>
+    <ul>
+      <li><a href="#ml-platform-services">ML Platform Services</a></li>
+      <li><a href="#deep-learning-on-aws">Deep Learning on AWS</a></li>
+      <li><a href="#ai-apis">AI APIs</a></li>
+    </ul>
+  </li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            <div class="c-sidebar-toggle">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <button
+    id="js-sidebar-toggle"
+    class="hamburger hamburger--arrowalt is-active"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+    <span class="c-sidebar-toggle__label">Toggle Sidebar</span>
+  </button>
+</div>
+
+            
+<div class="buttons">
+<a href="/aws-ml-guide/content/lessons/Lesson1_AWSML_Overview.ipynb" download>
+<button id="interact-button-download" class="interact-button">Download</button>
+</a>
+
+
+
+
+
+</div>
+
+
+            <div class="c-textbook__content">
+              <p><a href="https://colab.research.google.com/github/noahgift/aws-ml-guide/blob/master/Lesson1_AWSML_Overview.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+<h1 id="lesson-1-aws-machine-learning-specialty-ml-s-certification">Lesson 1 AWS Machine Learning-Specialty (ML-S) Certification</h1>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_00">Watch Lesson 1:  AWS Machine Learning-Speciality (MLS) Video</a></p>
+
+<h2 id="pragmatic-ai-labs">Pragmatic AI Labs</h2>
+
+<p><img src="https://paiml.com/images/logo_with_slogan_white_background.png" alt="alt text" /></p>
+
+<p>This notebook was produced by <a href="https://paiml.com/">Pragmatic AI Labs</a>.  You can continue learning about these topics by:</p>
+
+<ul>
+  <li>Buying a copy of <a href="http://www.informit.com/store/pragmatic-ai-an-introduction-to-cloud-based-machine-9780134863863">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Informit.</li>
+  <li>Buying a copy of  <a href="https://www.amazon.com/Pragmatic-AI-Introduction-Cloud-Based-Learning/dp/0134863860">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Amazon</li>
+  <li>Reading an online copy of <a href="https://www.safaribooksonline.com/library/view/pragmatic-ai-an/9780134863924/">Pragmatic AI:Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a></li>
+  <li>Watching video <a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118">Essential Machine Learning and AI with Python and Jupyter Notebook-Video-SafariOnline</a> on Safari Books Online.</li>
+  <li>Watching video <a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597">AWS Certified Machine Learning-Speciality</a></li>
+  <li>Purchasing video <a href="http://www.informit.com/store/essential-machine-learning-and-ai-with-python-and-jupyter-9780135261095">Essential Machine Learning and AI with Python and Jupyter Notebook- Purchase Video</a></li>
+  <li>Viewing more content at <a href="https://noahgift.com/">noahgift.com</a></li>
+</ul>
+
+<h2 id="11-certification-overview">1.1 Certification Overview</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_01">Watch 1.1 Certification Overview Video Lesson</a></p>
+
+<h3 id="load-aws-api-keys">Load AWS API Keys</h3>
+
+<p>Put keys in local or remote GDrive:</p>
+
+<p><code class="highlighter-rouge">cp ~/.aws/credentials /Users/myname/Google\ Drive/awsml/</code></p>
+
+<h4 id="mount-gdrive">Mount GDrive</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from google.colab import drive
+drive.mount('/content/gdrive')
+</code></pre></div></div>
+
+<div class="output output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Drive already mounted at /content/gdrive; to attempt to forcibly remount, call drive.mount("/content/gdrive", force_remount=True).
+
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os;os.listdir("/content/gdrive/My Drive/awsml")
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['kaggle.json', 'credentials', 'config']
+</code></pre></div></div>
+
+<h4 id="install-boto">Install Boto</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip -q install boto3
+
+</code></pre></div></div>
+
+<h4 id="create-api-config">Create API Config</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!mkdir -p ~/.aws &amp;&amp;\
+  cp /content/gdrive/My\ Drive/awsml/credentials ~/.aws/credentials 
+</code></pre></div></div>
+
+<h4 id="test-comprehend-api-call">Test Comprehend API Call</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is smoke in San Francisco"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '160',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Tue, 11 Dec 2018 01:07:46 GMT',
+   'x-amzn-requestid': '2b726af9-fce1-11e8-a4e1-2d227516436e'},
+  'HTTPStatusCode': 200,
+  'RequestId': '2b726af9-fce1-11e8-a4e1-2d227516436e',
+  'RetryAttempts': 0},
+ 'Sentiment': 'NEUTRAL',
+ 'SentimentScore': {'Mixed': 0.008628507144749165,
+  'Negative': 0.1037612184882164,
+  'Neutral': 0.8582549691200256,
+  'Positive': 0.0293553676456213}}
+</code></pre></div></div>
+
+<h3 id="audience">Audience</h3>
+
+<p>Intended for individuals who perform Development or Data Science role</p>
+
+<h3 id="validates-ability-to">Validates ability to:</h3>
+
+<ul>
+  <li>“design, implement, deploy and maintain ML solutions”</li>
+  <li>“select and justify appropriate ML approaches”</li>
+  <li>“indentify appropriate AWS services to implement ML solutions”</li>
+  <li>“Design and implement scalable, cost-optimized, reliable, and secure ML solutions”</li>
+</ul>
+
+<h3 id="recommended-aws-knowledge">Recommended AWS Knowledge</h3>
+
+<ul>
+  <li>
+    <p>Hands-on experience:</p>
+  </li>
+  <li>developing</li>
+  <li>architecting</li>
+  <li>
+    <p>running ML/deep learning workloads on AWS Cloud</p>
+  </li>
+  <li>Ability to express intuition behind basic ML algorithms</li>
+  <li>Experience performance basic hyperparameter optimization</li>
+  <li>Experience with ML and deep learning frameworks</li>
+  <li>Ability to follow model training best practices</li>
+  <li>Ability to follow deployment and operational best practices</li>
+</ul>
+
+<h2 id="12-exam-study-resources">1.2 Exam Study Resources</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_02">Watch 1.2 Exam Study Resources Video Lesson</a></p>
+
+<h3 id="official-aws-material">Official AWS Material</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49745472-de7cb500-fc53-11e8-8dd8-1fb2075d1373.png" alt="Sequential Split" /></p>
+
+<ul>
+  <li><a href="https://aws.amazon.com/training/learning-paths/machine-learning/">AWS ML University</a></li>
+  <li><a href="https://aws.amazon.com/machine-learning/">Machine Learning on AWS</a></li>
+  <li><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/amazon-machine-learning-key-concepts.html">Amazon Machine Learning Concepts</a></li>
+  <li><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/splitting-types.html">Splitting Your Data</a></li>
+  <li><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/types-of-ml-models.html">Types of Machine Learning Models</a></li>
+  <li><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/data-transformations-reference.html">Data Transformations</a></li>
+  <li><a href="https://www.youtube.com/watch?v=Jw9CpQkCvpM">Containerized Machine Learning on AWS Video</a></li>
+  <li><a href="https://www.youtube.com/watch?v=Q7N2iVfgA0U&amp;list=PLOS8MNIsAkpJCaOSQP6t5uoVtwUr0SFvM">AWS re:Invent Machine Learning Talk 2017</a></li>
+</ul>
+
+<h2 id="13-review-exam-guide">1.3 Review Exam Guide</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_03">Watch 1.3 Review Exam Guide Video Lesson</a></p>
+
+<p><a href="https://d1.awsstatic.com/training-and-certification/machinelearning/AWS%20Certified%20Machine%20Learning%20-%20Specialty_Exam%20Guide_v1.1_FINAL.pdf">AWS Certified Machine Learning–Specialty (MLS-C01) Exam Guide </a></p>
+
+<h3 id="domains-covered">Domains Covered</h3>
+
+<h4 id="data-engineering">Data Engineering</h4>
+
+<ul>
+  <li>Create data repositories for Machine Learning</li>
+  <li>Identify and implement a data-ingestion solution</li>
+  <li>Identify and implement a data-transformation solution</li>
+</ul>
+
+<h4 id="exploratory-data-analysis">Exploratory Data Analysis</h4>
+
+<ul>
+  <li>Sanitize and prepare data modeling</li>
+  <li>Perform feature engineering</li>
+  <li>Analyze and visualize data for machine learning</li>
+</ul>
+
+<h4 id="modeling">Modeling</h4>
+
+<ul>
+  <li>Frame business problems as machine learning problems</li>
+  <li>Select the appropriate model(s) for a given machine learning problem</li>
+  <li>Train machine learning models</li>
+  <li>Perform hyperparameter optimization</li>
+  <li>Evaluate machine learning models</li>
+</ul>
+
+<h4 id="machine-learning-implementation-and-operations">Machine Learning Implementation and Operations</h4>
+
+<ul>
+  <li>Build machine learning solutions for performance, availability, scalability, resiliency, and fault tolerance.</li>
+  <li>Recommend and implement the appropriate machine learning services and features for a given problem.</li>
+  <li>Apply basic AWS security practices to machine learning solutions.</li>
+  <li>Deploy and operationalize machine learning solutions.</li>
+</ul>
+
+<h2 id="14-exam-strategy">1.4 Exam Strategy</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_04">Watch 1.4 Exam Strategy Video Lesson</a></p>
+
+<h3 id="official-exam-study-guide">Official Exam Study Guide</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49443332-06b27280-f781-11e8-8ec2-88af4d47724e.png" alt="Study Path" /></p>
+
+<h2 id="15-best-practices-of-ml-on-aws">1.5 Best Practices of ML on AWS</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_05">Watch 1.5 Best Practices of ML on AWS Video Lesson</a></p>
+
+<h3 id="build-vs-buy">Build vs Buy</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45260894-08e67a00-b3a8-11e8-941f-e539cb10f8e1.jpg" alt="hero" /></p>
+
+<h3 id="overview">Overview</h3>
+
+<p>Auto and Managed ML Services on AWS</p>
+
+<ul>
+  <li>AWS Sagemaker</li>
+  <li>AWS Machine Learning</li>
+</ul>
+
+<p>Human in the Loop</p>
+
+<ul>
+  <li>AWS Sagemaker Ground Truth</li>
+  <li>AWS Mechanical Turk</li>
+</ul>
+
+<p>Supporting Technologies</p>
+
+<ul>
+  <li>MXNet</li>
+</ul>
+
+<h3 id="aws-sagemaker">AWS Sagemaker</h3>
+
+<p><a href="https://aws.amazon.com/sagemaker/features/">Sagemaker Features</a></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45426785-09a23900-b652-11e8-9ba6-4ff58a8103d5.png" alt="AWS Sagemaker" /></p>
+
+<ul>
+  <li>
+    <p>Build</p>
+  </li>
+  <li>Preconfigured Jupyter Notebooks</li>
+  <li>Built in, High Performance Algorithms (Optimized petabyte-scale peformance)</li>
+  <li>
+    <p>Supports many frameworks:  MXnet, Tensorflow, sklearn</p>
+  </li>
+  <li>
+    <p>Train</p>
+  </li>
+  <li>One click train with S3 target</li>
+  <li>Automatic hyperparameter tuning</li>
+  <li>
+    <p>Can scale training to clusters of machines with single line of code</p>
+  </li>
+  <li>
+    <p>Deploy</p>
+  </li>
+  <li>One click Deploy (creates HTTPS endpoint)</li>
+  <li>Automatic A/B Testing</li>
+  <li>Fully managed auto-scaling of inference</li>
+</ul>
+
+<h3 id="aws-machine-learning">AWS Machine Learning</h3>
+
+<p><a href="https://aws.amazon.com/aml/">Amazon Machine Learning Service</a></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45425471-53892000-b64e-11e8-8895-794014ce3702.png" alt="alt text" /></p>
+
+<p><strong>Key Features</strong></p>
+
+<ul>
+  <li>” makes it easy for developers of all skill levels to use machine learning technology”</li>
+  <li>Managaged ML Service</li>
+</ul>
+
+<p><strong>Resources</strong></p>
+<ul>
+  <li><a href="https://youtu.be/PAHU8tPA7xs">Introduction to AWS Machine Learning Video</a></li>
+  <li><a href="https://aws.amazon.com/blogs/big-data/building-a-numeric-regression-model-with-amazon-machine-learning/">Kaggle + Amazon ML Service</a></li>
+  <li><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/what-is-amazon-machine-learning.html">amazon ml dev guide</a></li>
+</ul>
+
+<h3 id="mxnet">MXNet</h3>
+
+<p><a href="https://gluon.mxnet.io/">Open Source Docs</a></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45424774-5e42b580-b64c-11e8-90f3-1f022fbc35e7.png" alt="mxnet logo" /></p>
+
+<ul>
+  <li>Alternative to TensorFlow</li>
+  <li>Amazon Backed</li>
+  <li>Integrated into Sagemaker and DeepLense</li>
+  <li>Has production-ready orchestration tools:  ECS, Docker, Kubernetes</li>
+  <li>Can do<a href="https://github.com/awslabs/mxnet-lambda"> inference via AWS Lambda</a></li>
+</ul>
+
+<p><strong>Resources</strong></p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=YlUoa3hLz78">Serving Machine Learning Models with Apache MXNet &amp; AWS Fargate</a></li>
+  <li><a href="https://github.com/awslabs/mxnet-lambda">mxnet-lambda</a></li>
+</ul>
+
+<h3 id="demo-aws-sagemaker">Demo AWS Sagemaker</h3>
+
+<h3 id="demo-aws-ml-service">Demo AWS ML Service</h3>
+
+<h4 id="build-vs-buy-1">Build vs Buy</h4>
+
+<ul>
+  <li>When to use AI APIs vs ML Platforms</li>
+</ul>
+
+<h2 id="16-techniques-to-accelerate-hands-on-practice">1.6 Techniques to accelerate hands-on practice</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_06">Watch 1.6 Techniques to accelerate hands-on practice Video Lesson</a></p>
+
+<h3 id="using-interactive-qwiklabs">Using Interactive QWIKLABS</h3>
+
+<p>A temporary, but real AWS environment that teaches specific labs.</p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/48742665-b2ea4a00-ec14-11e8-8805-0600f60e637b.png" alt="QWiklabs" /></p>
+
+<h4 id="big-data-on-aws">Big Data on AWS</h4>
+
+<p><a href="https://run.qwiklabs.com/quests/5">Big Data on AWS Quest</a></p>
+
+<h4 id="intro-to-machine-learning">Intro to Machine Learning</h4>
+<p><a href="https://run.qwiklabs.com/focuses/275?parent=catalog">Introduction to Machine Learning</a></p>
+
+<h3 id="using-aws-console-sagemaker-and-apis">Using AWS Console, Sagemaker and APIS</h3>
+
+<ul>
+  <li>Console to Explore</li>
+  <li>Sagemaker</li>
+  <li>APIs via Boto</li>
+</ul>
+
+<h2 id="17-understand-important-ml-related-services">1.7 Understand important ML related services</h2>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_07">Watch 1.7 Understand important ML related services Video Lesson</a></p>
+
+<h3 id="ml-platform-services">ML Platform Services</h3>
+
+<h4 id="amazon-sagemaker">Amazon Sagemaker</h4>
+
+<p><strong>[Demo] Overview Console</strong></p>
+
+<h4 id="aws-deeplens">AWS DeepLens</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45308029-688e7380-b4d5-11e8-8ffb-9422184c274c.png" alt="alt text" /></p>
+
+<p><strong>[Demo] Overview Console</strong></p>
+
+<h4 id="emr">EMR</h4>
+
+<ul>
+  <li><a href="https://aws.amazon.com/emr/?nc2=type_a">Amazon EMR</a></li>
+  <li>Managed Hadoop/Spark</li>
+  <li>
+    <p>Use cases:</p>
+
+    <ul>
+      <li>clickstream analysis</li>
+      <li>real-time analytics</li>
+      <li>log analysis</li>
+      <li>ETL</li>
+      <li>predictive analytics</li>
+      <li>genomics</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>[Demo] Overview Console</strong></p>
+
+<h4 id="amazon-machine-learning-service">Amazon Machine Learning Service</h4>
+
+<ul>
+  <li><a href="https://aws.amazon.com/aml/?nc2=type_a">Amazon Machine Learning</a></li>
+  <li>Provides visualization and wizards to help create ML models</li>
+  <li>AutoML technology</li>
+</ul>
+
+<p><strong>[Demo] Overview Console</strong></p>
+
+<h3 id="deep-learning-on-aws">Deep Learning on AWS</h3>
+
+<h4 id="aws-deep-learning-amis">AWS Deep Learning AMIs</h4>
+
+<ul>
+  <li><a href="https://aws.amazon.com/machine-learning/amis/">AWS Deep Learning AMIs</a></li>
+</ul>
+
+<h4 id="apache-mxnet">Apache MXNet</h4>
+
+<ul>
+  <li><a href="https://aws.amazon.com/machine-learning/amis/">Apache MXNet on AWS</a></li>
+</ul>
+
+<h4 id="tensorflow-on-aws">TensorFlow on AWS</h4>
+
+<ul>
+  <li><a href="https://aws.amazon.com/tensorflow/">TensorFlow on AWS</a></li>
+  <li><a href="https://d1.awsstatic.com/whitepapers/nucleus-tensorflow.pdf">88% of TensorFlow workloads are on AWS</a></li>
+</ul>
+
+<h3 id="ai-apis">AI APIs</h3>
+
+<h4 id="vision-services">Vision Services</h4>
+
+<h5 id="rekognition-image">Rekognition Image</h5>
+
+<ul>
+  <li>Deep learning-based image analysis</li>
+</ul>
+
+<h5 id="rekognition-video">Rekognition Video</h5>
+
+<ul>
+  <li>Deep learning-based video analysis</li>
+</ul>
+
+<h4 id="conversational-chatbots">Conversational chatbots</h4>
+
+<h5 id="amazon-lex">Amazon Lex</h5>
+
+<ul>
+  <li><a href="https://aws.amazon.com/lex/">Amazon Lex</a></li>
+  <li>Service for building conversational interfaces</li>
+</ul>
+
+<h4 id="language-services">Language Services</h4>
+
+<h5 id="comprehend">Comprehend</h5>
+
+<ul>
+  <li><a href="https://aws.amazon.com/comprehend/">AWS Comprehend</a></li>
+  <li>NLP service
+    <ul>
+      <li>Sentiment Analysis</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Neutral Sentiment</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is smoke in San Francisco"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '160',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Tue, 11 Dec 2018 01:07:59 GMT',
+   'x-amzn-requestid': '3368fdfa-fce1-11e8-8656-5735cedac40a'},
+  'HTTPStatusCode': 200,
+  'RequestId': '3368fdfa-fce1-11e8-8656-5735cedac40a',
+  'RetryAttempts': 0},
+ 'Sentiment': 'NEUTRAL',
+ 'SentimentScore': {'Mixed': 0.008628507144749165,
+  'Negative': 0.1037612184882164,
+  'Neutral': 0.8582549691200256,
+  'Positive': 0.0293553676456213}}
+</code></pre></div></div>
+
+<p><strong>Negative Sentiment</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is smoke in San Francisco and it makes me very angry"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '164',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Tue, 11 Dec 2018 01:08:17 GMT',
+   'x-amzn-requestid': '3e127c6f-fce1-11e8-b936-d1be599a3739'},
+  'HTTPStatusCode': 200,
+  'RequestId': '3e127c6f-fce1-11e8-b936-d1be599a3739',
+  'RetryAttempts': 0},
+ 'Sentiment': 'NEGATIVE',
+ 'SentimentScore': {'Mixed': 0.00937745813280344,
+  'Negative': 0.9539545774459839,
+  'Neutral': 0.03619137033820152,
+  'Positive': 0.00047663392615504563}}
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>trump_text = """
+which it was not (but even if it was, it is only a CIVIL CASE, like Obama’s - but it was done correctly by a lawyer and there would not even be a fine. Lawyer’s liability if he made a mistake, not me). Cohen just trying to get his sentence reduced. WITCH HUNT!
+
+"""
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+comprehend.detect_sentiment(Text=trump_text,LanguageCode='en')
+
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '160',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Tue, 11 Dec 2018 01:10:42 GMT',
+   'x-amzn-requestid': '94b5be74-fce1-11e8-92e1-212d40a34fc0'},
+  'HTTPStatusCode': 200,
+  'RequestId': '94b5be74-fce1-11e8-92e1-212d40a34fc0',
+  'RetryAttempts': 0},
+ 'Sentiment': 'NEGATIVE',
+ 'SentimentScore': {'Mixed': 0.0772324725985527,
+  'Negative': 0.776195228099823,
+  'Neutral': 0.10541720688343048,
+  'Positive': 0.04115508496761322}}
+</code></pre></div></div>
+
+<p><strong>Positive Sentiment</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is no more smoke in San Francisco and it makes me very happy"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '163',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Mon, 10 Dec 2018 22:41:39 GMT',
+   'x-amzn-requestid': 'c25e7c7c-fccc-11e8-b966-5f330c378b33'},
+  'HTTPStatusCode': 200,
+  'RequestId': 'c25e7c7c-fccc-11e8-b966-5f330c378b33',
+  'RetryAttempts': 0},
+ 'Sentiment': 'POSITIVE',
+ 'SentimentScore': {'Mixed': 0.01339163538068533,
+  'Negative': 0.007987627759575844,
+  'Neutral': 0.04016350954771042,
+  'Positive': 0.9384573101997375}}
+</code></pre></div></div>
+
+<h5 id="translate">Translate</h5>
+
+<ul>
+  <li><a href="https://aws.amazon.com/translate/?nc2=type_a">Amazon Translate</a></li>
+  <li>Natural and accurate language translation</li>
+</ul>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+client = boto3.client('translate', region_name="us-east-1")
+text = "Hola, mi nombre es Noah y me encanta el aprendizaje automático."
+client.translate_text(Text=text,SourceLanguageCode="auto", TargetLanguageCode="en")
+
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '124',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Tue, 11 Dec 2018 01:11:05 GMT',
+   'x-amzn-requestid': 'a1dd350d-fce1-11e8-88f8-15e276ec8e51'},
+  'HTTPStatusCode': 200,
+  'RequestId': 'a1dd350d-fce1-11e8-88f8-15e276ec8e51',
+  'RetryAttempts': 0},
+ 'SourceLanguageCode': 'es',
+ 'TargetLanguageCode': 'en',
+ 'TranslatedText': 'Hello, my name is Noah and I love machine learning.'}
+</code></pre></div></div>
+
+<h5 id="transcribe">Transcribe</h5>
+
+<ul>
+  <li><a href="https://aws.amazon.com/transcribe/">Amazon Transcribe</a></li>
+  <li>Automatic speech recognition</li>
+  <li><a href="https://aws.amazon.com/getting-started/tutorials/create-audio-transcript-transcribe/">Translate Tutorial</a></li>
+</ul>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+s3_path = "https://s3.amazonaws.com/pai-transcribe/transcribe-sample.dac1d22492611d998262c8c856b98a74180a1a8f.mp3"
+</code></pre></div></div>
+
+<h5 id="polly">Polly</h5>
+
+<ul>
+  <li><a href="https://aws.amazon.com/polly/">Amazon Polly</a></li>
+  <li>Turns text into lifelike speech</li>
+</ul>
+
+              <nav class="c-page__nav">
+  
+    
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="/aws-ml-guide/lessons/lessons">
+      〈 <span class="u-margin-right-tiny"></span> Lessons
+    </a>
+  
+
+  
+    
+    <a id="js-page__nav__next" class="c-page__nav__next" href="/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering">
+      Lesson 2 - Data Engineering for Ma... <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  
+</nav>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

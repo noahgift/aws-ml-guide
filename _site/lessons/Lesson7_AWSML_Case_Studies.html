@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18896442-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-18896442-3');
+</script>
+
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Lesson 7 - Amazon Machine Learning Case Studies</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="https://noahgift.github.io/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html">
+  <link rel="alternate" type="application/rss+xml" title="AWS Certified Machine Learning-Specialty (ML-S) Guide" href="https://noahgift.github.io/aws-ml-guide/feed.xml">
+
+  <meta property="og:url"         content="https://noahgift.github.io/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Lesson 7 - Amazon Machine Learning Case Studies" />
+<meta property="og:description" content="" />
+<meta property="og:image"       content="" />
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":
+    "https://noahgift.github.io/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html",
+  "headline":
+    "Lesson 7 - Amazon Machine Learning Case Studies",
+  "datePublished":
+    "2019-03-18T12:56:13-07:00",
+  "dateModified":
+    "2019-03-18T12:56:13-07:00",
+  "description":
+    "",
+  "author": {
+    "@type": "Person",
+    "name": "Noah gift"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://noahgift.github.io/aws-ml-guide",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://noahgift.github.io/aws-ml-guide",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aws-ml-guide/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    CommonHTML: {
+        linebreaks: {
+            automatic: true,
+        },
+    },
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML' async></script>
+
+  <!-- DOM updating function -->
+  <script>
+const runWhenDOMLoaded = cb => {
+  if (document.readyState != 'loading') {
+    cb()
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', cb)
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState == 'complete') cb()
+    })
+  }
+}
+
+// Helper function to init things quickly
+initFunction = function(myfunc) {
+  runWhenDOMLoaded(myfunc);
+  document.addEventListener('turbolinks:load', myfunc);
+};
+</script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/aws-ml-guide';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="/aws-ml-guide/assets/js/anchor.min.js"  type="text/javascript"></script>
+  <script>
+
+initFunction(function () {
+    anchors.add("main h1, main h2, main h3, main h4")
+});
+
+</script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="/aws-ml-guide/assets/js/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  <script src="https://unpkg.com/nbinteract-core" async></script>
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+  <!-- Google analytics -->
+  <script src="/aws-ml-guide/assets/js/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  <script>
+/**
+ * Set up copy/paste for code blocks
+ */
+const codeCellId = index => `codecell${index}`
+
+const clipboardButton = id =>
+  `<a class="btn copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#${id}">
+    <img src="/aws-ml-guide/assets/images/copy-button.svg" alt="Copy to clipboard">
+  </a>`
+
+// Clears selected text since ClipboardJS will select the text when copying
+const clearSelection = () => {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges()
+  } else if (document.selection) {
+    document.selection.empty()
+  }
+}
+
+// Changes tooltip text for two seconds, then changes it back
+const temporarilyChangeTooltip = (el, newText) => {
+  const oldText = el.getAttribute('data-tooltip')
+  el.setAttribute('data-tooltip', newText)
+  setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
+}
+
+const addCopyButtonToCodeCells = () => {
+  // If ClipboardJS hasn't loaded, wait a bit and try again. This
+  // happens because we load ClipboardJS asynchronously.
+  if (window.ClipboardJS === undefined) {
+    setTimeout(addCopyButtonToCodeCells, 250)
+    return
+  }
+
+  const codeCells = document.querySelectorAll('div.highlighter-rouge:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.querySelector(`pre#${id} + a`) == null) {
+      codeCell.insertAdjacentHTML('afterend', clipboardButton(id));
+    }
+  })
+
+  const clipboard = new ClipboardJS('.copybtn')
+  clipboard.on('success', event => {
+    clearSelection()
+    temporarilyChangeTooltip(event.trigger, 'Copied!')
+  })
+
+  clipboard.on('error', event => {
+    temporarilyChangeTooltip(event.trigger, 'Failed to copy')
+  })
+
+  // Get rid of clipboard before the next page visit to avoid memory leak
+  document.addEventListener('turbolinks:before-visit', () =>
+    clipboard.destroy()
+  )
+}
+
+initFunction(addCopyButtonToCodeCells);
+</script>
+
+  <!-- Hide cell code -->
+  
+<script>
+/**
+Add buttons to hide code cells
+*/
+
+
+var setCodeCellVisibility = function(inputField, kind) {
+    // Update the image and class for hidden
+    var id = inputField.getAttribute('data-id');
+    var codeCell = document.querySelector(`#${id}`);
+
+    if (kind === "visible") {
+        codeCell.classList.remove('hidden');
+        inputField.checked = true;
+    } else {
+        codeCell.classList.add('hidden');
+        inputField.checked = false;
+    }
+}
+
+var toggleCodeCellVisibility = function (event) {
+    // The label is clicked, and now we decide what to do based on the input field's clicked status
+    if (event.target.tagName === "LABEL") {
+        var inputField = event.target.previousElementSibling;
+    } else {
+        // It is the span inside the target
+        var inputField = event.target.parentElement.previousElementSibling;
+    }
+
+    if (inputField.checked === true) {
+        setCodeCellVisibility(inputField, "visible");
+    } else {
+        setCodeCellVisibility(inputField, "hidden");
+    }
+}
+
+
+// Button constructor
+const hideCodeButton = id => `<input class="hidebtn" type="checkbox" id="hidebtn${id}" data-id="${id}"><label title="Toggle cell" for="hidebtn${id}" class="plusminus"><span class="pm_h"></span><span class="pm_v"></span></label>`
+
+var addHideButton = function () {
+  // If a hide button is already added, don't add another
+  if (document.querySelector('div.hidecode input') !== null) {
+      return;
+  }
+
+  // Find the input cells and add a hide button
+  document.querySelectorAll('div.input_area div.highlight').forEach(function (item, index) {
+    if (!item.parentElement.classList.contains("hidecode")) {
+        // Skip the cell if it doesn't have a hidecode class
+        return;
+    }
+
+    const id = codeCellId(index)
+    item.setAttribute('id', id);
+    item.insertAdjacentHTML('afterend', hideCodeButton(id))
+
+    // Set up the visibility toggle
+    hideLink = document.querySelector(`#${id} + input + label`);
+    hideLink.addEventListener('click', toggleCodeCellVisibility)
+  });
+}
+
+
+// Initialize the hide buttos
+var initHiddenCells = function () {
+    // Add hide buttons to the cells
+    addHideButton();
+
+    // Toggle the code cells that should be hidden
+    document.querySelectorAll('div.hidecode input').forEach(function (item) {
+        setCodeCellVisibility(item, 'hidden');
+        item.checked = true;
+    })
+}
+
+initFunction(initHiddenCells);
+
+</script>
+
+
+  <!-- Load custom website scripts -->
+  <script src="/aws-ml-guide/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/aws-ml-guide/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="/aws-ml-guide/assets/js/lunr/lunr.min.js" type="text/javascript"></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+</head>
+
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://paiml.com"><img src="/aws-ml-guide/images/logo.png" class="textbook_logo" id="sidebar-logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/intro.html"
+        >
+          
+          Home
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="https://github.com/noahgift/aws-ml-guide"
+        >
+          
+          GitHub repository
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__chapter"><a class="c-sidebar__entry" href="/aws-ml-guide/search.html">Search</a></li>
+        
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/lessons/lessons.html"
+        >
+          
+          Lessons
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html"
+                >
+                  
+                  Lesson 1 - AWS Machine Learning Certification-Overview
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html"
+                >
+                  
+                  Lesson 2 - Data Engineering for Machine Learning on AWS
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson3_AWSML_Exploratory_Data_Analysis.html"
+                >
+                  
+                  Lesson 3 - Amazon Machine Learning Exploratory Data Analysis
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html"
+                >
+                  
+                  Lesson 4 - Amazon Machine Learning Modeling
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson5_AWSML_Operationalization.html"
+                >
+                  
+                  Lesson 5 - Amazon Machine Learning Operationalization
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson6_AWSML_Production_ML_App.html"
+                >
+                  
+                  Lesson 6 - Amazon Machine Learning Production Machine Learning Applications
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry c-sidebar__entry--active"
+                  href="/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html"
+                >
+                  
+                  Lesson 7 - Amazon Machine Learning Case Studies
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">A product of <a href="https://paiml.com">Pragmatic AI Labs</a></p>
+</nav>
+
+      
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#pragmatic-ai-labs">Pragmatic AI Labs</a></li>
+  <li><a href="#load-aws-api-keys">Load AWS API Keys</a>
+    <ul>
+      <li><a href="#mount-gdrive">Mount GDrive</a></li>
+      <li><a href="#install-boto">Install Boto</a></li>
+      <li><a href="#create-api-config">Create API Config</a></li>
+      <li><a href="#test-comprehend-api-call">Test Comprehend API Call</a></li>
+    </ul>
+  </li>
+  <li><a href="#71-sagemaker-features">7.1 Sagemaker Features</a>
+    <ul>
+      <li><a href="#search">Search</a></li>
+      <li><a href="#ground-truth">Ground Truth</a></li>
+      <li><a href="#notebook">Notebook</a></li>
+      <li><a href="#training">Training</a></li>
+      <li><a href="#inference">Inference</a></li>
+      <li><a href="#built-in-sagemaker-algorithms">Built in Sagemaker Algorithms</a></li>
+    </ul>
+  </li>
+  <li><a href="#72-deeplense-features">7.2 DeepLense Features</a></li>
+  <li><a href="#73-kinesis-features">7.3 Kinesis Features</a></li>
+  <li><a href="#74-aws-flavored-python">7.4 AWS Flavored Python</a>
+    <ul>
+      <li><a href="#boto3">Boto3</a></li>
+      <li><a href="#pandas">Pandas</a></li>
+      <li><a href="#plotting-with-python">Plotting with Python</a></li>
+      <li><a href="#putting-it-all-together-production-style">Putting it all together (Production Style)</a></li>
+    </ul>
+  </li>
+  <li><a href="#75-cloud9">7.5 Cloud9</a>
+    <ul>
+      <li><a href="#democloud9">[Demo]Cloud9</a></li>
+    </ul>
+  </li>
+  <li><a href="#76-key-terminology">7.6 Key Terminology</a>
+    <ul>
+      <li><a href="#sagemaker-built-in-algorithms">Sagemaker Built-in Algorithms</a></li>
+    </ul>
+  </li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            <div class="c-sidebar-toggle">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <button
+    id="js-sidebar-toggle"
+    class="hamburger hamburger--arrowalt is-active"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+    <span class="c-sidebar-toggle__label">Toggle Sidebar</span>
+  </button>
+</div>
+
+            
+<div class="buttons">
+<a href="/aws-ml-guide/content/lessons/Lesson7_AWSML_Case_Studies.ipynb" download>
+<button id="interact-button-download" class="interact-button">Download</button>
+</a>
+
+
+
+
+
+</div>
+
+
+            <div class="c-textbook__content">
+              <p><a href="https://colab.research.google.com/github/noahgift/aws-ml-guide/blob/master/Lesson7_AWSML_Case_Studies.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+<h1 id="lesson-7-case-studies">Lesson 7: Case Studies</h1>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_07_00">Watch Lesson 7:  Case Studies Video</a></p>
+
+<h2 id="pragmatic-ai-labs">Pragmatic AI Labs</h2>
+
+<p><img src="https://paiml.com/images/logo_with_slogan_white_background.png" alt="alt text" /></p>
+
+<p>This notebook was produced by <a href="https://paiml.com/">Pragmatic AI Labs</a>.  You can continue learning about these topics by:</p>
+
+<ul>
+  <li>Buying a copy of <a href="http://www.informit.com/store/pragmatic-ai-an-introduction-to-cloud-based-machine-9780134863863">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Informit.</li>
+  <li>Buying a copy of  <a href="https://www.amazon.com/Pragmatic-AI-Introduction-Cloud-Based-Learning/dp/0134863860">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Amazon</li>
+  <li>Reading an online copy of <a href="https://www.safaribooksonline.com/library/view/pragmatic-ai-an/9780134863924/">Pragmatic AI:Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a></li>
+  <li>Watching video <a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118">Essential Machine Learning and AI with Python and Jupyter Notebook-Video-SafariOnline</a> on Safari Books Online.</li>
+  <li>Watching video <a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597">AWS Certified Machine Learning-Speciality</a></li>
+  <li>Purchasing video <a href="http://www.informit.com/store/essential-machine-learning-and-ai-with-python-and-jupyter-9780135261095">Essential Machine Learning and AI with Python and Jupyter Notebook- Purchase Video</a></li>
+  <li>Viewing more content at <a href="https://noahgift.com/">noahgift.com</a></li>
+</ul>
+
+<h2 id="load-aws-api-keys">Load AWS API Keys</h2>
+
+<p>Put keys in local or remote GDrive:</p>
+
+<p><code class="highlighter-rouge">cp ~/.aws/credentials /Users/myname/Google\ Drive/awsml/</code></p>
+
+<h3 id="mount-gdrive">Mount GDrive</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from google.colab import drive
+drive.mount('/content/gdrive', force_remount=True)
+</code></pre></div></div>
+
+<div class="output output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mounted at /content/gdrive
+
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os;os.listdir("/content/gdrive/My Drive/awsml")
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['kaggle.json', 'credentials', 'config']
+</code></pre></div></div>
+
+<h3 id="install-boto">Install Boto</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip -q install boto3
+
+</code></pre></div></div>
+
+<h3 id="create-api-config">Create API Config</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!mkdir -p ~/.aws &amp;&amp;\
+  cp /content/gdrive/My\ Drive/awsml/credentials ~/.aws/credentials 
+</code></pre></div></div>
+
+<h3 id="test-comprehend-api-call">Test Comprehend API Call</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is smoke in San Francisco"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '160',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Fri, 14 Dec 2018 16:11:55 GMT',
+   'x-amzn-requestid': 'fa00db36-ffba-11e8-882b-8bc33ca9084d'},
+  'HTTPStatusCode': 200,
+  'RequestId': 'fa00db36-ffba-11e8-882b-8bc33ca9084d',
+  'RetryAttempts': 0},
+ 'Sentiment': 'NEUTRAL',
+ 'SentimentScore': {'Mixed': 0.008628507144749165,
+  'Negative': 0.1037612184882164,
+  'Neutral': 0.8582549691200256,
+  'Positive': 0.0293553676456213}}
+</code></pre></div></div>
+
+<h2 id="71-sagemaker-features">7.1 Sagemaker Features</h2>
+
+<h3 id="search">Search</h3>
+
+<h4 id="demo-search">[Demo] Search</h4>
+
+<p><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/search.html">Manage Machine Learning Experiments with Search</a></p>
+
+<ul>
+  <li>Finding training jobs</li>
+  <li>Rank training jobs</li>
+  <li>Tracing lineage of a model</li>
+</ul>
+
+<h3 id="ground-truth">Ground Truth</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49688683-9bdba100-faca-11e8-8d93-a55ce6c35a92.png" alt="ground_truth" /></p>
+
+<ul>
+  <li>Setup and Manage labeling jobs</li>
+  <li>Uses active learning and human labeling</li>
+  <li>First 500 objects labeled per month are free</li>
+</ul>
+
+<h4 id="demo-labeling-job">[Demo] Labeling Job</h4>
+
+<h3 id="notebook">Notebook</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49688694-d04f5d00-faca-11e8-9fad-eb63b2534b07.png" alt="notebooks" /></p>
+
+<h4 id="demo-sagemaker-notebooks">[Demo] Sagemaker Notebooks</h4>
+
+<ul>
+  <li>Create and run Jupyter Notebooks</li>
+  <li>Using Jupyter</li>
+  <li>Using JupyterLab</li>
+  <li>
+    <p>Using the terminal</p>
+  </li>
+  <li>
+    <p>Lifecycle configurations</p>
+  </li>
+  <li>Git Repositories</li>
+  <li>public repositories can be cloned on Notebook launch</li>
+</ul>
+
+<h3 id="training">Training</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49688717-05f44600-facb-11e8-8d7f-cf33d272573a.png" alt="training" /></p>
+
+<h4 id="demo-sagemaker-training">[Demo] Sagemaker Training</h4>
+
+<ul>
+  <li>Algorithms</li>
+  <li>Create algorithm</li>
+  <li>
+    <p>Subscribe <a href="https://aws.amazon.com/marketplace/search/results?page=1&amp;filters=fulfillment_options%2Cresource_type&amp;fulfillment_options=SAGEMAKER&amp;resource_type=ALGORITHM">AWS Marketplace</a></p>
+  </li>
+  <li>
+    <p>Training Jobs</p>
+  </li>
+  <li>HyperParameter Tuning Jobs</li>
+</ul>
+
+<h3 id="inference">Inference</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49688735-2fad6d00-facb-11e8-94cb-cba9322e309b.png" alt="inference" /></p>
+
+<h4 id="demo-sagemaker-inference">[Demo] Sagemaker Inference</h4>
+
+<ul>
+  <li>
+    <p>Compilation jobs</p>
+  </li>
+  <li>
+    <p>Model packages</p>
+  </li>
+  <li>
+    <p>Models</p>
+  </li>
+  <li>
+    <p>Endpoint configurations</p>
+  </li>
+  <li>
+    <p>Endpoints</p>
+  </li>
+  <li>
+    <p>Batch transform jobs</p>
+  </li>
+</ul>
+
+<h3 id="built-in-sagemaker-algorithms">Built in Sagemaker Algorithms</h3>
+
+<p>Table of <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">algorithms provided by Amazon Sagemaker</a></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49692597-58595500-fb13-11e8-9db3-e1fe371ac36a.png" alt="aws_algorithms" /></p>
+
+<h2 id="72-deeplense-features">7.2 DeepLense Features</h2>
+
+<p><img src="https://user-images.githubusercontent.com/58792/50003518-c0b39680-ff58-11e8-86dc-5a57e1482ef3.png" alt="tech_specs" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45307777-bfe01400-b4d4-11e8-88a3-149317f9dffc.png" alt="mqt" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/45308029-688e7380-b4d5-11e8-8ffb-9422184c274c.png" alt="detection" /></p>
+
+<h4 id="demo-deeplense">[Demo] DeepLense</h4>
+
+<h2 id="73-kinesis-features">7.3 Kinesis Features</h2>
+
+<p><a href="https://aws.amazon.com/kinesis/data-streams/faqs/">Kinesis FAQ</a></p>
+
+<ul>
+  <li>Processes Data in Real-Time</li>
+  <li>Can process hundreds of TBs an hour</li>
+  <li>Example inputs are:</li>
+  <li>logs</li>
+  <li>financial transactions</li>
+  <li>Streaming Data</li>
+</ul>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip install -q sensible
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import asyncio
+import time
+import datetime
+import uuid
+import boto3
+import json
+from sensible.loginit import logger
+
+LOG = logger(__name__)
+
+def firehose_client(region_name="us-east-1"):
+    """Kinesis Firehose client"""
+
+    firehose_conn = boto3.client("firehose", region_name=region_name)
+    extra_msg = {"region_name": region_name, "aws_service": "firehose"}
+    LOG.info("firehose connection initiated", extra=extra_msg)
+    return firehose_conn
+
+async def put_record(data,
+            client,
+            delivery_stream_name="aws-ml-cert"):
+    """
+    See this:
+        http://boto3.readthedocs.io/en/latest/reference/services/
+        firehose.html#Firehose.Client.put_record
+    """
+    extra_msg = {"aws_service": "firehose"}
+    LOG.info(f"Pushing record to firehose: {data}", extra=extra_msg)
+    response = client.put_record(
+        DeliveryStreamName=delivery_stream_name,
+        Record={
+            'Data': data
+        }
+    )
+    return response
+
+
+def gen_uuid_events():
+    """Creates a time stamped UUID based event"""
+
+    current_time = 'test-{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datetime.now())
+    event_id = str(uuid.uuid4())
+    event = {event_id:current_time}
+    return json.dumps(event)
+
+def send_async_firehose_events(count=100):
+    """Async sends events to firehose"""
+
+    start = time.time() 
+    client = firehose_client()
+    extra_msg = {"aws_service": "firehose"}
+    loop = asyncio.get_event_loop()
+    tasks = []
+    LOG.info(f"sending aysnc events TOTAL {count}",extra=extra_msg)
+    num = 0
+    for _ in range(count):
+        tasks.append(asyncio.ensure_future(put_record(gen_uuid_events(), client)))
+        LOG.info(f"sending aysnc events: COUNT {num}/{count}")
+        num +=1
+    loop.run_until_complete(asyncio.wait(tasks))
+    loop.close()
+    end = time.time()  
+    LOG.info("Total time: {}".format(end - start))
+
+
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>send_async_firehose_events(10)
+</code></pre></div></div>
+
+<h2 id="74-aws-flavored-python">7.4 AWS Flavored Python</h2>
+
+<h3 id="boto3">Boto3</h3>
+
+<ul>
+  <li>
+    <p>Main Interface for working with AWS</p>
+  </li>
+  <li>Any Service in AWS can be communicated with Boto</li>
+  <li>If Amazon is a country this is the language</li>
+</ul>
+
+<h4 id="communicate-with-s3">Communicate with S3</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+resource = boto3.resource("s3")
+resource.meta.client.download_file('testntest', 'nba_2017_endorsement_full_stats.csv',
+'/tmp/nba_2017_endorsement_full_stats.csv')
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!ls -l /tmp
+</code></pre></div></div>
+
+<div class="output output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code>total 4
+srw------- 1 root root    0 Dec 14 16:11 drivefs_ipc.0
+srw------- 1 root root    0 Dec 14 16:11 drivefs_ipc.0_shell
+-rw-r--r-- 1 root root 1447 Dec 14 19:06 nba_2017_endorsement_full_stats.csv
+
+</code></pre></div></div>
+
+<h3 id="pandas">Pandas</h3>
+
+<p>Main Datascience library for AWS and Python</p>
+
+<ul>
+  <li>It is assumed you know about it</li>
+  <li>Many study videos will show examples using it</li>
+</ul>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pandas as pd
+
+df = pd.read_csv("/tmp/nba_2017_endorsement_full_stats.csv")
+df.head(2)
+</code></pre></div></div>
+
+<div class="output output_html">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PLAYER</th>
+      <th>TEAM</th>
+      <th>SALARY_MILLIONS</th>
+      <th>ENDORSEMENT_MILLIONS</th>
+      <th>PCT_ATTENDANCE_STADIUM</th>
+      <th>ATTENDANCE_TOTAL_BY_10K</th>
+      <th>FRANCHISE_VALUE_100_MILLION</th>
+      <th>ELO_100X</th>
+      <th>CONF</th>
+      <th>POSITION</th>
+      <th>AGE</th>
+      <th>MP</th>
+      <th>GP</th>
+      <th>MPG</th>
+      <th>WINS_RPM</th>
+      <th>PLAYER_TEAM_WINS</th>
+      <th>WIKIPEDIA_PAGEVIEWS_10K</th>
+      <th>TWITTER_FAVORITE_COUNT_1K</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LeBron James</td>
+      <td>Cleveland Cavaliers</td>
+      <td>30.96</td>
+      <td>55.0</td>
+      <td>100.0</td>
+      <td>84.0</td>
+      <td>12.0</td>
+      <td>15.45</td>
+      <td>East</td>
+      <td>SF</td>
+      <td>32</td>
+      <td>37.8</td>
+      <td>74.0</td>
+      <td>37.8</td>
+      <td>20.43</td>
+      <td>51.0</td>
+      <td>14.70</td>
+      <td>5.53</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Kevin Durant</td>
+      <td>Golden State Warriors</td>
+      <td>26.50</td>
+      <td>36.0</td>
+      <td>100.0</td>
+      <td>80.0</td>
+      <td>26.0</td>
+      <td>17.70</td>
+      <td>West</td>
+      <td>SF</td>
+      <td>28</td>
+      <td>33.4</td>
+      <td>62.0</td>
+      <td>33.4</td>
+      <td>12.24</td>
+      <td>51.0</td>
+      <td>6.29</td>
+      <td>1.43</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<h4 id="descriptive-statistics-with-pandas">Descriptive Statistics with Pandas</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df.describe()
+</code></pre></div></div>
+
+<div class="output output_html">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SALARY_MILLIONS</th>
+      <th>ENDORSEMENT_MILLIONS</th>
+      <th>PCT_ATTENDANCE_STADIUM</th>
+      <th>ATTENDANCE_TOTAL_BY_10K</th>
+      <th>FRANCHISE_VALUE_100_MILLION</th>
+      <th>ELO_100X</th>
+      <th>AGE</th>
+      <th>MP</th>
+      <th>GP</th>
+      <th>MPG</th>
+      <th>WINS_RPM</th>
+      <th>PLAYER_TEAM_WINS</th>
+      <th>WIKIPEDIA_PAGEVIEWS_10K</th>
+      <th>TWITTER_FAVORITE_COUNT_1K</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>23.216000</td>
+      <td>21.700000</td>
+      <td>99.800000</td>
+      <td>80.200000</td>
+      <td>21.375000</td>
+      <td>15.678000</td>
+      <td>29.300000</td>
+      <td>33.890000</td>
+      <td>70.800000</td>
+      <td>33.890000</td>
+      <td>11.506000</td>
+      <td>44.100000</td>
+      <td>6.532000</td>
+      <td>2.764000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>5.294438</td>
+      <td>15.362653</td>
+      <td>2.394438</td>
+      <td>5.202563</td>
+      <td>8.507554</td>
+      <td>1.361142</td>
+      <td>3.164034</td>
+      <td>2.303837</td>
+      <td>8.390471</td>
+      <td>2.303837</td>
+      <td>6.868487</td>
+      <td>12.591443</td>
+      <td>5.204233</td>
+      <td>3.646399</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>12.110000</td>
+      <td>8.000000</td>
+      <td>94.000000</td>
+      <td>70.000000</td>
+      <td>10.250000</td>
+      <td>13.740000</td>
+      <td>24.000000</td>
+      <td>29.900000</td>
+      <td>60.000000</td>
+      <td>29.900000</td>
+      <td>1.170000</td>
+      <td>26.000000</td>
+      <td>2.690000</td>
+      <td>0.350000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>21.707500</td>
+      <td>13.000000</td>
+      <td>100.000000</td>
+      <td>78.500000</td>
+      <td>13.125000</td>
+      <td>15.250000</td>
+      <td>28.000000</td>
+      <td>32.725000</td>
+      <td>62.500000</td>
+      <td>32.725000</td>
+      <td>6.015000</td>
+      <td>32.500000</td>
+      <td>3.402500</td>
+      <td>0.865000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>23.880000</td>
+      <td>14.500000</td>
+      <td>100.000000</td>
+      <td>80.500000</td>
+      <td>22.500000</td>
+      <td>15.450000</td>
+      <td>28.000000</td>
+      <td>33.850000</td>
+      <td>73.000000</td>
+      <td>33.850000</td>
+      <td>12.860000</td>
+      <td>46.500000</td>
+      <td>4.475000</td>
+      <td>1.485000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>26.500000</td>
+      <td>31.250000</td>
+      <td>100.000000</td>
+      <td>83.250000</td>
+      <td>26.000000</td>
+      <td>16.275000</td>
+      <td>31.750000</td>
+      <td>34.975000</td>
+      <td>77.750000</td>
+      <td>34.975000</td>
+      <td>16.890000</td>
+      <td>51.000000</td>
+      <td>5.917500</td>
+      <td>2.062500</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>30.960000</td>
+      <td>55.000000</td>
+      <td>104.000000</td>
+      <td>89.000000</td>
+      <td>33.000000</td>
+      <td>17.700000</td>
+      <td>35.000000</td>
+      <td>37.800000</td>
+      <td>81.000000</td>
+      <td>37.800000</td>
+      <td>20.430000</td>
+      <td>65.000000</td>
+      <td>17.570000</td>
+      <td>12.280000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<h3 id="plotting-with-python">Plotting with Python</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import warnings
+import numpy as np
+warnings.simplefilter('ignore', np.RankWarning)
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import seaborn as sns
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+fig.set_size_inches(11, 8.5)
+sns.regplot(data=df, 
+            x="SALARY_MILLIONS", y="ENDORSEMENT_MILLIONS", 
+            order=2).set_title("NBA Salary &amp; Endorsements")
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5,1,'NBA Salary &amp; Endorsements')
+</code></pre></div></div>
+
+<p class="output output_png"><img src="../images/lessons/Lesson7_AWSML_Case_Studies_58_1.png" alt="png" /></p>
+
+<h3 id="putting-it-all-together-production-style">Putting it all together (Production Style)</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip -q install python-json-logger
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import logging
+from pythonjsonlogger import jsonlogger
+
+LOG = logging.getLogger()
+LOG.setLevel(logging.DEBUG)
+logHandler = logging.StreamHandler()
+formatter = jsonlogger.JsonFormatter()
+logHandler.setFormatter(formatter)
+LOG.addHandler(logHandler)
+
+import click
+import boto3
+import pandas as pd
+
+TEST_DF = pd.DataFrame(
+    {"SentimentRaw": ["I am very Angry",
+                    "We are very Happy",
+                    "It is raining in Seattle"]}
+)
+
+def create_sentiment(row):
+    """Uses AWS Comprehend to Create Sentiments on a DataFrame"""
+
+    LOG.info(f"Processing {row}")
+    comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+    payload = comprehend.detect_sentiment(Text=row, LanguageCode='en')
+    LOG.debug(f"Found Sentiment: {payload}")    
+    sentiment = payload['Sentiment']
+    return sentiment
+
+def apply_sentiment(df, column="SentimentRaw"):
+    """Uses Pandas Apply to Create Sentiment Analysis"""
+
+    df['Sentiment'] = df[column].apply(create_sentiment)
+    return df
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df = apply_sentiment(TEST_DF)
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df.head()
+</code></pre></div></div>
+
+<div class="output output_html">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SentimentRaw</th>
+      <th>Sentiment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>I am very Angry</td>
+      <td>NEGATIVE</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>We are very Happy</td>
+      <td>POSITIVE</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>It is raining in Seattle</td>
+      <td>NEUTRAL</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<h2 id="75-cloud9">7.5 Cloud9</h2>
+
+<ul>
+  <li>Web based <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html">development environment</a></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/58792/50033517-afe14000-ffad-11e8-894a-f70389a046d7.png" alt="Cloud9" /></p>
+
+<h3 id="democloud9">[Demo]Cloud9</h3>
+
+<ul>
+  <li>Create a cloud9 environment</li>
+  <li>Install Python 3.6</li>
+</ul>
+
+<hr />
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum <span class="nt">-y</span> update
+<span class="nb">sudo </span>yum <span class="nt">-y</span> install python36
+
+</code></pre></div></div>
+
+<p><strong>Python Lambda Function</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">decimal</span>
+
+
+<span class="k">def</span> <span class="nf">lambda_handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+  <span class="k">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+  <span class="k">if</span> <span class="s">'body'</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s">"body"</span><span class="p">])</span>
+  
+  <span class="n">amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s">"amount"</span><span class="p">])</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">coins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
+  <span class="n">coin_lookup</span> <span class="o">=</span> <span class="p">{</span><span class="mi">25</span><span class="p">:</span> <span class="s">"quarters"</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span> <span class="s">"dimes"</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s">"nickels"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s">"pennies"</span><span class="p">}</span>
+  <span class="n">coin</span> <span class="o">=</span> <span class="n">coins</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+  <span class="n">num</span><span class="p">,</span> <span class="n">rem</span>  <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">amount</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span> <span class="n">coin</span><span class="p">)</span>
+  <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">num</span><span class="p">:</span><span class="n">coin_lookup</span><span class="p">[</span><span class="n">coin</span><span class="p">]})</span>
+  <span class="k">while</span> <span class="n">rem</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">coin</span> <span class="o">=</span> <span class="n">coins</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">num</span><span class="p">,</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="n">coin</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">num</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coin_lookup</span><span class="p">:</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">num</span><span class="p">:</span><span class="n">coin_lookup</span><span class="p">[</span><span class="n">coin</span><span class="p">]})</span>
+
+  <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"statusCode"</span><span class="p">:</span> <span class="s">"200"</span><span class="p">,</span>
+    <span class="s">"headers"</span><span class="p">:</span> <span class="p">{</span> <span class="s">"Content-type"</span><span class="p">:</span> <span class="s">"application/json"</span> <span class="p">},</span>
+    <span class="s">"body"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"res"</span><span class="p">:</span> <span class="n">res</span><span class="p">})</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">response</span>
+</code></pre></div></div>
+
+<p><strong>payload</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"amount"</span><span class="p">:</span> <span class="s2">".71"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>response</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Response</span>
+<span class="p">{</span>
+    <span class="s2">"statusCode"</span><span class="p">:</span> <span class="s2">"200"</span><span class="p">,</span>
+    <span class="s2">"headers"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Content-type"</span><span class="p">:</span> <span class="s2">"application/json"</span>
+    <span class="p">},</span>
+    <span class="s2">"body"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">res</span><span class="se">\"</span><span class="s2">: [{</span><span class="se">\"</span><span class="s2">2</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">quarters</span><span class="se">\"</span><span class="s2">}, {</span><span class="se">\"</span><span class="s2">2</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">dimes</span><span class="se">\"</span><span class="s2">}, {</span><span class="se">\"</span><span class="s2">1</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">pennies</span><span class="se">\"</span><span class="s2">}]}"</span>
+<span class="p">}</span>
+
+<span class="nb">Function</span> <span class="nx">Logs</span>
+<span class="p">{</span><span class="s1">'amount'</span><span class="p">:</span> <span class="s1">'.71'</span><span class="p">}</span>
+
+<span class="nx">Request</span> <span class="nx">ID</span>
+<span class="nx">d7ec2cad</span><span class="o">-</span><span class="mi">8</span><span class="nx">da0</span><span class="o">-</span><span class="mi">4394</span><span class="o">-</span><span class="mi">957</span><span class="nx">e</span><span class="o">-</span><span class="mi">41</span><span class="nx">f07bad23ae</span>
+</code></pre></div></div>
+
+<h2 id="76-key-terminology">7.6 Key Terminology</h2>
+
+<h3 id="sagemaker-built-in-algorithms">Sagemaker Built-in Algorithms</h3>
+
+<h4 id="blazingtext">BlazingText</h4>
+
+<ul>
+  <li>unsupervised learning algorithm for generating <strong>Word2Vec embeddings.</strong></li>
+  <li>aws blog post <a href="https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-blazingtext-parallelizing-word2vec-on-multiple-cpus-or-gpus/">BlazingText</a></li>
+</ul>
+
+<p><img src="https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2018/01/18/sagemaker-word2vec-3-1.gif" alt="BlazingText" /></p>
+
+<h4 id="deepar-forecasting">DeepAR Forecasting</h4>
+
+<ul>
+  <li>supervised learning algorithm for forecasting scalar (that is, one-dimensional) time series using recurrent neural networks (RNN)</li>
+  <li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/deepar.html">DeepAR Documentation</a></li>
+</ul>
+
+<p><img src="https://docs.aws.amazon.com/sagemaker/latest/dg/images/deepar-2.png" alt="DeepAR" /></p>
+
+              <nav class="c-page__nav">
+  
+    
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="/aws-ml-guide/lessons/Lesson6_AWSML_Production_ML_App">
+      〈 <span class="u-margin-right-tiny"></span> Lesson 6 - Amazon Machine Learning...
+    </a>
+  
+
+  
+    
+    <a id="js-page__nav__next" class="c-page__nav__next" href="">
+       <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  
+</nav>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

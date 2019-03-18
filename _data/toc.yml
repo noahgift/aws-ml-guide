@@ -1,0 +1,71 @@
+# This file contains the order and numbering for all sections in the book.
+#
+# It is a sample TOC file to help you get started. Fill it out with entries
+# for your own content.
+#
+# Each entry has the following schema:
+#
+# - title: mytitle   # Title of chapter or section
+#   url: /myurl  # URL of section relative to the /content/ folder.
+#   sections:  # Contains a list of more entries that make up the chapter's sections
+#   not_numbered: true  # if the section shouldn't have a number in the sidebar
+#     (e.g. Introduction or appendices)
+#   expand_sections: true  # if you'd like the sections of this chapter to always
+#     be expanded in the sidebar.
+#   external: true  # Whether the URL is an external link or points to content in the book
+#
+# Below are some special values that trigger specific behavior:
+# - search: true  # Will provide a link to a search page
+# - divider: true  # Will insert a divider in the sidebar
+# - header: My Header  # Will insert a header with no link in the sidebar
+#
+# See the links below for an example.
+
+# Top-level page
+- title: Home
+  url: /intro
+  not_numbered: true
+
+# External link
+- title: GitHub repository
+  url: https://github.com/noahgift/aws-ml-guide
+  external: true
+  not_numbered: true
+
+# Adds a searchbar link
+- title: Search
+  search: true
+
+# Divider for meta-pages and content page
+- divider: true
+
+# Add a header and sample content section
+- header: AWS Certified Machine Learning-Specialty (ML-S) Guide
+
+# Video Lesson
+- title: Lessons
+  url: /lessons/lessons
+  not_numbered: true
+  expand_sections: true
+  sections:
+  - title: Lesson 1 - AWS Machine Learning Certification-Overview
+    url: /lessons/Lesson1_AWSML_Overview
+    not_numbered: true
+  - title: Lesson 2 - Data Engineering for Machine Learning on AWS
+    url: /lessons/Lesson2_AWSML_Data_Engineering
+    not_numbered: true
+  - title: Lesson 3 - Amazon Machine Learning Exploratory Data Analysis
+    url: /lessons/Lesson3_AWSML_Exploratory_Data_Analysis
+    not_numbered: true
+  - title: Lesson 4 - Amazon Machine Learning Modeling
+    url: /lessons/Lesson4_AWSML_Modeling
+    not_numbered: true
+  - title: Lesson 5 - Amazon Machine Learning Operationalization
+    url: /lessons/Lesson5_AWSML_Operationalization
+    not_numbered: true
+  - title: Lesson 6 - Amazon Machine Learning Production Machine Learning Applications
+    url: /lessons/Lesson6_AWSML_Production_ML_App
+    not_numbered: true
+  - title: Lesson 7 - Amazon Machine Learning Case Studies 
+    url: /lessons/Lesson7_AWSML_Case_Studies
+    not_numbered: true

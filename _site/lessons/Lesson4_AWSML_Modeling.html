@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18896442-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-18896442-3');
+</script>
+
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Lesson 4 - Amazon Machine Learning Modeling</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="https://noahgift.github.io/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html">
+  <link rel="alternate" type="application/rss+xml" title="AWS Certified Machine Learning-Specialty (ML-S) Guide" href="https://noahgift.github.io/aws-ml-guide/feed.xml">
+
+  <meta property="og:url"         content="https://noahgift.github.io/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Lesson 4 - Amazon Machine Learning Modeling" />
+<meta property="og:description" content="" />
+<meta property="og:image"       content="" />
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":
+    "https://noahgift.github.io/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html",
+  "headline":
+    "Lesson 4 - Amazon Machine Learning Modeling",
+  "datePublished":
+    "2019-03-18T12:56:13-07:00",
+  "dateModified":
+    "2019-03-18T12:56:13-07:00",
+  "description":
+    "",
+  "author": {
+    "@type": "Person",
+    "name": "Noah gift"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://noahgift.github.io/aws-ml-guide",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://noahgift.github.io/aws-ml-guide",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aws-ml-guide/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    CommonHTML: {
+        linebreaks: {
+            automatic: true,
+        },
+    },
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML' async></script>
+
+  <!-- DOM updating function -->
+  <script>
+const runWhenDOMLoaded = cb => {
+  if (document.readyState != 'loading') {
+    cb()
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', cb)
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState == 'complete') cb()
+    })
+  }
+}
+
+// Helper function to init things quickly
+initFunction = function(myfunc) {
+  runWhenDOMLoaded(myfunc);
+  document.addEventListener('turbolinks:load', myfunc);
+};
+</script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/aws-ml-guide';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="/aws-ml-guide/assets/js/anchor.min.js"  type="text/javascript"></script>
+  <script>
+
+initFunction(function () {
+    anchors.add("main h1, main h2, main h3, main h4")
+});
+
+</script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="/aws-ml-guide/assets/js/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  <script src="https://unpkg.com/nbinteract-core" async></script>
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+  <!-- Google analytics -->
+  <script src="/aws-ml-guide/assets/js/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  <script>
+/**
+ * Set up copy/paste for code blocks
+ */
+const codeCellId = index => `codecell${index}`
+
+const clipboardButton = id =>
+  `<a class="btn copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#${id}">
+    <img src="/aws-ml-guide/assets/images/copy-button.svg" alt="Copy to clipboard">
+  </a>`
+
+// Clears selected text since ClipboardJS will select the text when copying
+const clearSelection = () => {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges()
+  } else if (document.selection) {
+    document.selection.empty()
+  }
+}
+
+// Changes tooltip text for two seconds, then changes it back
+const temporarilyChangeTooltip = (el, newText) => {
+  const oldText = el.getAttribute('data-tooltip')
+  el.setAttribute('data-tooltip', newText)
+  setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
+}
+
+const addCopyButtonToCodeCells = () => {
+  // If ClipboardJS hasn't loaded, wait a bit and try again. This
+  // happens because we load ClipboardJS asynchronously.
+  if (window.ClipboardJS === undefined) {
+    setTimeout(addCopyButtonToCodeCells, 250)
+    return
+  }
+
+  const codeCells = document.querySelectorAll('div.highlighter-rouge:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.querySelector(`pre#${id} + a`) == null) {
+      codeCell.insertAdjacentHTML('afterend', clipboardButton(id));
+    }
+  })
+
+  const clipboard = new ClipboardJS('.copybtn')
+  clipboard.on('success', event => {
+    clearSelection()
+    temporarilyChangeTooltip(event.trigger, 'Copied!')
+  })
+
+  clipboard.on('error', event => {
+    temporarilyChangeTooltip(event.trigger, 'Failed to copy')
+  })
+
+  // Get rid of clipboard before the next page visit to avoid memory leak
+  document.addEventListener('turbolinks:before-visit', () =>
+    clipboard.destroy()
+  )
+}
+
+initFunction(addCopyButtonToCodeCells);
+</script>
+
+  <!-- Hide cell code -->
+  
+<script>
+/**
+Add buttons to hide code cells
+*/
+
+
+var setCodeCellVisibility = function(inputField, kind) {
+    // Update the image and class for hidden
+    var id = inputField.getAttribute('data-id');
+    var codeCell = document.querySelector(`#${id}`);
+
+    if (kind === "visible") {
+        codeCell.classList.remove('hidden');
+        inputField.checked = true;
+    } else {
+        codeCell.classList.add('hidden');
+        inputField.checked = false;
+    }
+}
+
+var toggleCodeCellVisibility = function (event) {
+    // The label is clicked, and now we decide what to do based on the input field's clicked status
+    if (event.target.tagName === "LABEL") {
+        var inputField = event.target.previousElementSibling;
+    } else {
+        // It is the span inside the target
+        var inputField = event.target.parentElement.previousElementSibling;
+    }
+
+    if (inputField.checked === true) {
+        setCodeCellVisibility(inputField, "visible");
+    } else {
+        setCodeCellVisibility(inputField, "hidden");
+    }
+}
+
+
+// Button constructor
+const hideCodeButton = id => `<input class="hidebtn" type="checkbox" id="hidebtn${id}" data-id="${id}"><label title="Toggle cell" for="hidebtn${id}" class="plusminus"><span class="pm_h"></span><span class="pm_v"></span></label>`
+
+var addHideButton = function () {
+  // If a hide button is already added, don't add another
+  if (document.querySelector('div.hidecode input') !== null) {
+      return;
+  }
+
+  // Find the input cells and add a hide button
+  document.querySelectorAll('div.input_area div.highlight').forEach(function (item, index) {
+    if (!item.parentElement.classList.contains("hidecode")) {
+        // Skip the cell if it doesn't have a hidecode class
+        return;
+    }
+
+    const id = codeCellId(index)
+    item.setAttribute('id', id);
+    item.insertAdjacentHTML('afterend', hideCodeButton(id))
+
+    // Set up the visibility toggle
+    hideLink = document.querySelector(`#${id} + input + label`);
+    hideLink.addEventListener('click', toggleCodeCellVisibility)
+  });
+}
+
+
+// Initialize the hide buttos
+var initHiddenCells = function () {
+    // Add hide buttons to the cells
+    addHideButton();
+
+    // Toggle the code cells that should be hidden
+    document.querySelectorAll('div.hidecode input').forEach(function (item) {
+        setCodeCellVisibility(item, 'hidden');
+        item.checked = true;
+    })
+}
+
+initFunction(initHiddenCells);
+
+</script>
+
+
+  <!-- Load custom website scripts -->
+  <script src="/aws-ml-guide/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/aws-ml-guide/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/aws-ml-guide/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="/aws-ml-guide/assets/js/lunr/lunr.min.js" type="text/javascript"></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+</head>
+
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://paiml.com"><img src="/aws-ml-guide/images/logo.png" class="textbook_logo" id="sidebar-logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/intro.html"
+        >
+          
+          Home
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="https://github.com/noahgift/aws-ml-guide"
+        >
+          
+          GitHub repository
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__chapter"><a class="c-sidebar__entry" href="/aws-ml-guide/search.html">Search</a></li>
+        
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">AWS Certified Machine Learning-Specialty (ML-S) Guide</li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/aws-ml-guide/lessons/lessons.html"
+        >
+          
+          Lessons
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson1_AWSML_Overview.html"
+                >
+                  
+                  Lesson 1 - AWS Machine Learning Certification-Overview
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson2_AWSML_Data_Engineering.html"
+                >
+                  
+                  Lesson 2 - Data Engineering for Machine Learning on AWS
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson3_AWSML_Exploratory_Data_Analysis.html"
+                >
+                  
+                  Lesson 3 - Amazon Machine Learning Exploratory Data Analysis
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry c-sidebar__entry--active"
+                  href="/aws-ml-guide/lessons/Lesson4_AWSML_Modeling.html"
+                >
+                  
+                  Lesson 4 - Amazon Machine Learning Modeling
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson5_AWSML_Operationalization.html"
+                >
+                  
+                  Lesson 5 - Amazon Machine Learning Operationalization
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson6_AWSML_Production_ML_App.html"
+                >
+                  
+                  Lesson 6 - Amazon Machine Learning Production Machine Learning Applications
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/aws-ml-guide/lessons/Lesson7_AWSML_Case_Studies.html"
+                >
+                  
+                  Lesson 7 - Amazon Machine Learning Case Studies
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">A product of <a href="https://paiml.com">Pragmatic AI Labs</a></p>
+</nav>
+
+      
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#pragmatic-ai-labs">Pragmatic AI Labs</a></li>
+  <li><a href="#load-aws-api-keys">Load AWS API Keys</a>
+    <ul>
+      <li><a href="#mount-gdrive">Mount GDrive</a></li>
+      <li><a href="#install-boto">Install Boto</a></li>
+      <li><a href="#create-api-config">Create API Config</a></li>
+      <li><a href="#test-comprehend-api-call">Test Comprehend API Call</a></li>
+    </ul>
+  </li>
+  <li><a href="#41-aws-ml-systems-overview">4.1 AWS ML Systems Overview</a>
+    <ul>
+      <li><a href="#machine-learning-at-aws">Machine Learning at AWS</a></li>
+    </ul>
+  </li>
+  <li><a href="#42-feature-engineering">4.2 Feature Engineering</a>
+    <ul>
+      <li><a href="#feature-engineering-overview">Feature Engineering Overview</a></li>
+      <li><a href="#explore-features">Explore Features</a></li>
+      <li><a href="#demo-aws-machine-learning-service">Demo AWS Machine Learning Service</a></li>
+    </ul>
+  </li>
+  <li><a href="#43-train-a-model">4.3 Train a Model</a>
+    <ul>
+      <li><a href="#demo-aws-machine-learning-service-1">Demo AWS Machine Learning Service</a></li>
+    </ul>
+  </li>
+  <li><a href="#44-evaluate-a-model">4.4 Evaluate a Model</a>
+    <ul>
+      <li><a href="#demo-aws-machine-learning-service-2">Demo AWS Machine Learning Service</a></li>
+    </ul>
+  </li>
+  <li><a href="#45-tune-a-model">4.5 Tune a Model</a>
+    <ul>
+      <li><a href="#demo-aws-machine-learning-service-3">[Demo] AWS Machine Learning Service</a></li>
+    </ul>
+  </li>
+  <li><a href="#46-understand-ml-inference">4.6 Understand ML Inference</a>
+    <ul>
+      <li><a href="#demo-aws-machine-learning-service-4">[Demo] AWS Machine Learning Service</a></li>
+    </ul>
+  </li>
+  <li><a href="#47-understand-deep-learning">4.7 Understand Deep Learning</a>
+    <ul>
+      <li><a href="#intro-to-deep-learning">Intro to Deep Learning</a></li>
+      <li><a href="#deep-learning-amis">Deep Learning AMIs</a></li>
+    </ul>
+  </li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            <div class="c-sidebar-toggle">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <button
+    id="js-sidebar-toggle"
+    class="hamburger hamburger--arrowalt is-active"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+    <span class="c-sidebar-toggle__label">Toggle Sidebar</span>
+  </button>
+</div>
+
+            
+<div class="buttons">
+<a href="/aws-ml-guide/content/lessons/Lesson4_AWSML_Modeling.ipynb" download>
+<button id="interact-button-download" class="interact-button">Download</button>
+</a>
+
+
+
+
+
+</div>
+
+
+            <div class="c-textbook__content">
+              <p><a href="https://colab.research.google.com/github/noahgift/aws-ml-guide/blob/master/Lesson4_AWSML_Modeling.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+<h1 id="lesson-4-machine-learning-modeling-on-aws">Lesson 4 Machine Learning Modeling on AWS</h1>
+
+<p><a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_04_00">Watch Lesson 4:  Machine Learning Modeling on AWS Video</a></p>
+
+<h2 id="pragmatic-ai-labs">Pragmatic AI Labs</h2>
+
+<p><img src="https://paiml.com/images/logo_with_slogan_white_background.png" alt="alt text" /></p>
+
+<p>This notebook was produced by <a href="https://paiml.com/">Pragmatic AI Labs</a>.  You can continue learning about these topics by:</p>
+
+<ul>
+  <li>Buying a copy of <a href="http://www.informit.com/store/pragmatic-ai-an-introduction-to-cloud-based-machine-9780134863863">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Informit.</li>
+  <li>Buying a copy of  <a href="https://www.amazon.com/Pragmatic-AI-Introduction-Cloud-Based-Learning/dp/0134863860">Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a> from Amazon</li>
+  <li>Reading an online copy of <a href="https://www.safaribooksonline.com/library/view/pragmatic-ai-an/9780134863924/">Pragmatic AI:Pragmatic AI: An Introduction to Cloud-Based Machine Learning</a></li>
+  <li>Watching video <a href="https://www.safaribooksonline.com/videos/essential-machine-learning/9780135261118">Essential Machine Learning and AI with Python and Jupyter Notebook-Video-SafariOnline</a> on Safari Books Online.</li>
+  <li>Watching video <a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597">AWS Certified Machine Learning-Speciality</a></li>
+  <li>Purchasing video <a href="http://www.informit.com/store/essential-machine-learning-and-ai-with-python-and-jupyter-9780135261095">Essential Machine Learning and AI with Python and Jupyter Notebook- Purchase Video</a></li>
+  <li>Viewing more content at <a href="https://noahgift.com/">noahgift.com</a></li>
+</ul>
+
+<h2 id="load-aws-api-keys">Load AWS API Keys</h2>
+
+<p>Put keys in local or remote GDrive:</p>
+
+<p><code class="highlighter-rouge">cp ~/.aws/credentials /Users/myname/Google\ Drive/awsml/</code></p>
+
+<h3 id="mount-gdrive">Mount GDrive</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from google.colab import drive
+drive.mount('/content/gdrive', force_remount=True)
+</code></pre></div></div>
+
+<div class="output output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mounted at /content/gdrive
+
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os;os.listdir("/content/gdrive/My Drive/awsml")
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['kaggle.json', 'credentials', 'config']
+</code></pre></div></div>
+
+<h3 id="install-boto">Install Boto</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip -q install boto3
+
+</code></pre></div></div>
+
+<h3 id="create-api-config">Create API Config</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!mkdir -p ~/.aws &amp;&amp;\
+  cp /content/gdrive/My\ Drive/awsml/credentials ~/.aws/credentials 
+</code></pre></div></div>
+
+<h3 id="test-comprehend-api-call">Test Comprehend API Call</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import boto3
+comprehend = boto3.client(service_name='comprehend', region_name="us-east-1")
+text = "There is smoke in San Francisco"
+comprehend.detect_sentiment(Text=text, LanguageCode='en')
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '160',
+   'content-type': 'application/x-amz-json-1.1',
+   'date': 'Thu, 22 Nov 2018 00:21:54 GMT',
+   'x-amzn-requestid': '9d69a0a9-edec-11e8-8560-532dc7aa62ea'},
+  'HTTPStatusCode': 200,
+  'RequestId': '9d69a0a9-edec-11e8-8560-532dc7aa62ea',
+  'RetryAttempts': 0},
+ 'Sentiment': 'NEUTRAL',
+ 'SentimentScore': {'Mixed': 0.008628507144749165,
+  'Negative': 0.1037612184882164,
+  'Neutral': 0.8582549691200256,
+  'Positive': 0.0293553676456213}}
+</code></pre></div></div>
+
+<h2 id="41-aws-ml-systems-overview">4.1 AWS ML Systems Overview</h2>
+
+<h3 id="machine-learning-at-aws">Machine Learning at AWS</h3>
+
+<ul>
+  <li><a href="https://www.aws.training/learningobject/video?id=16207&amp;trk=gs_card">AWS ML Services Video</a></li>
+  <li>
+    <p><a href="https://www.aws.training/learningobject/video?id=16363&amp;trk=gs_card">AWS Machine Learning Overview Video</a></p>
+  </li>
+  <li>Thousands of Engineers working on Machine Learning at AWS</li>
+</ul>
+
+<h4 id="what-is-machine-learning">What is Machine Learning?</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/48925854-4de55d00-ee7d-11e8-8656-f92b2a2d3aed.png" alt="aiml" /></p>
+
+<ul>
+  <li>Subset of AI</li>
+  <li>Deep Learning is subset of Machine Learning</li>
+</ul>
+
+<h4 id="what-can-machine-learning-do">What can Machine Learning Do?</h4>
+
+<ul>
+  <li>Make predictions</li>
+  <li>Optimize utility functions</li>
+  <li>Extract hidden data structures</li>
+  <li>Classify data</li>
+</ul>
+
+<h4 id="machine-learning-use-cases">Machine Learning Use Cases</h4>
+
+<h5 id="fraud-detection">Fraud Detection</h5>
+
+<ul>
+  <li>Mine data</li>
+  <li>Identify hidden patterns and create labels (unsupervised learning)</li>
+  <li>Train model</li>
+  <li>Flag transaction as fraudulent</li>
+</ul>
+
+<h5 id="content-personalization">Content Personalization</h5>
+
+<ul>
+  <li>Use predictive analytics to recommend items (recommendation systems)</li>
+</ul>
+
+<h5 id="target-marketing">Target Marketing</h5>
+
+<ul>
+  <li>Use custom activity to choose revelant email campaigns</li>
+  <li>cross-selling</li>
+  <li>upselling</li>
+</ul>
+
+<h5 id="categorization">Categorization</h5>
+
+<ul>
+  <li>Matching hiring managers and resumes</li>
+  <li>Unstructured content –&gt; Machine Learning Model –&gt; Categorized documents</li>
+</ul>
+
+<h5 id="customer-service">Customer Service</h5>
+
+<ul>
+  <li>Analyze social media traffic to route customers to customer support</li>
+  <li>Predictive routing of customer emails</li>
+</ul>
+
+<h4 id="machine-learning-concepts">Machine Learning Concepts</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49088318-dc573700-f20d-11e8-825c-d034f060b395.png" alt="Ml Modeling" /></p>
+
+<p><strong>Combination of Methods and Systems</strong></p>
+
+<ul>
+  <li><strong>Predict</strong>
+    <ul>
+      <li>Predict new data based on observed data</li>
+    </ul>
+  </li>
+  <li><strong>Extract</strong>
+    <ul>
+      <li>Extract hidden structure from data</li>
+    </ul>
+  </li>
+  <li><strong>Summarize</strong>
+    <ul>
+      <li>Summarize data into executive brief</li>
+    </ul>
+  </li>
+  <li><strong>Optimize</strong>
+    <ul>
+      <li>Optimize an action, given a cost function and observed data</li>
+    </ul>
+  </li>
+  <li><strong>Adapt</strong>
+    <ul>
+      <li>Adapt based on observed data</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="machine-learning-types">Machine Learning Types</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/48926326-c77f4a00-ee81-11e8-8066-84c922df39d2.png" alt="Machine Learning Types" /></p>
+
+<ul>
+  <li>Supervised Learning
+    <ul>
+      <li>Labels are known for inputs and outputs</li>
+      <li>Model “learns” to generalize from data (records)</li>
+      <li>Human needs to tell model which outputs are correct (to train model)</li>
+      <li>Input –&gt; Model –&gt; Output/Prediction</li>
+      <li>Classification (Category like “red”, “blue”) and Regression (Numerical i.e. Housing price)</li>
+    </ul>
+  </li>
+  <li>Unsupervised Learning
+    <ul>
+      <li>Labels are not known</li>
+      <li>Lables “hidden structures” are discovered</li>
+      <li>Self-organization</li>
+      <li>Clustering</li>
+    </ul>
+  </li>
+  <li>Reinforcement Learning
+    <ul>
+      <li>Model learns by interacting with environment</li>
+      <li>Learns to take action to maximize total reward</li>
+      <li>Inspired by behavioral biology</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="frameworks--infrastructure">Frameworks &amp; Infrastructure</h4>
+
+<ul>
+  <li>All Major frameworks
+    <ul>
+      <li>Apache MXNet</li>
+      <li>Caffe and Caffe 2</li>
+      <li>Tensorflow</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="machine-learning-platforms">Machine learning platforms</h4>
+
+<ul>
+  <li>Fully managed platform for building models with own data
+    <ul>
+      <li>Apache Spark on EMR</li>
+      <li>SparkML (25 PetaByte models, Zillow and Netflix)</li>
+      <li>Sagemaker</li>
+      <li>Amazon Machine Learning</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="api-driven-services">API-driven services</h4>
+
+<p>Examples include:</p>
+
+<ul>
+  <li>Comprehend (NLP)</li>
+  <li>Rekognition (Computer Vision)</li>
+</ul>
+
+<h4 id="models">Models</h4>
+
+<ul>
+  <li>Can be stored in S3</li>
+  <li>Can be A/B tested</li>
+</ul>
+
+<h4 id="optimized-instances--machine-images">Optimized Instances &amp; Machine Images</h4>
+
+<ul>
+  <li>Deep Learning AMIs</li>
+  <li>Containers</li>
+</ul>
+
+<h2 id="42-feature-engineering">4.2 Feature Engineering</h2>
+
+<h3 id="feature-engineering-overview">Feature Engineering Overview</h3>
+
+<ul>
+  <li>Feature is an attribute used in a prediction model</li>
+  <li>Feature engineering is the creation and curation of these attributes</li>
+</ul>
+
+<h3 id="explore-features">Explore Features</h3>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pandas as pd
+import seaborn as sns
+
+df = pd.read_csv("https://raw.githubusercontent.com/noahgift/aws-ml-guide/master/data/banking.csv")
+df.head()
+</code></pre></div></div>
+
+<div class="output output_html">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>job</th>
+      <th>marital</th>
+      <th>education</th>
+      <th>default</th>
+      <th>housing</th>
+      <th>loan</th>
+      <th>contact</th>
+      <th>month</th>
+      <th>day_of_week</th>
+      <th>...</th>
+      <th>campaign</th>
+      <th>pdays</th>
+      <th>previous</th>
+      <th>poutcome</th>
+      <th>emp_var_rate</th>
+      <th>cons_price_idx</th>
+      <th>cons_conf_idx</th>
+      <th>euribor3m</th>
+      <th>nr_employed</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>44</td>
+      <td>blue-collar</td>
+      <td>married</td>
+      <td>basic.4y</td>
+      <td>unknown</td>
+      <td>yes</td>
+      <td>no</td>
+      <td>cellular</td>
+      <td>aug</td>
+      <td>thu</td>
+      <td>...</td>
+      <td>1</td>
+      <td>999</td>
+      <td>0</td>
+      <td>nonexistent</td>
+      <td>1.4</td>
+      <td>93.444</td>
+      <td>-36.1</td>
+      <td>4.963</td>
+      <td>5228.1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>53</td>
+      <td>technician</td>
+      <td>married</td>
+      <td>unknown</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>cellular</td>
+      <td>nov</td>
+      <td>fri</td>
+      <td>...</td>
+      <td>1</td>
+      <td>999</td>
+      <td>0</td>
+      <td>nonexistent</td>
+      <td>-0.1</td>
+      <td>93.200</td>
+      <td>-42.0</td>
+      <td>4.021</td>
+      <td>5195.8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>28</td>
+      <td>management</td>
+      <td>single</td>
+      <td>university.degree</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>no</td>
+      <td>cellular</td>
+      <td>jun</td>
+      <td>thu</td>
+      <td>...</td>
+      <td>3</td>
+      <td>6</td>
+      <td>2</td>
+      <td>success</td>
+      <td>-1.7</td>
+      <td>94.055</td>
+      <td>-39.8</td>
+      <td>0.729</td>
+      <td>4991.6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>39</td>
+      <td>services</td>
+      <td>married</td>
+      <td>high.school</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>cellular</td>
+      <td>apr</td>
+      <td>fri</td>
+      <td>...</td>
+      <td>2</td>
+      <td>999</td>
+      <td>0</td>
+      <td>nonexistent</td>
+      <td>-1.8</td>
+      <td>93.075</td>
+      <td>-47.1</td>
+      <td>1.405</td>
+      <td>5099.1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>55</td>
+      <td>retired</td>
+      <td>married</td>
+      <td>basic.4y</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>no</td>
+      <td>cellular</td>
+      <td>aug</td>
+      <td>fri</td>
+      <td>...</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+      <td>success</td>
+      <td>-2.9</td>
+      <td>92.201</td>
+      <td>-31.4</td>
+      <td>0.869</td>
+      <td>5076.2</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div>
+</div>
+
+<h4 id="correlation-heatmap">Correlation Heatmap</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sns.heatmap(df.corr())
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fd3ae31b4a8&gt;
+</code></pre></div></div>
+
+<p class="output output_png"><img src="../images/lessons/Lesson4_AWSML_Modeling_56_1.png" alt="png" /></p>
+
+<h4 id="yellowbrick-road-feature-rank">Yellowbrick Road Feature Rank</h4>
+
+<p>Can use <a href="http://www.scikit-yb.org/en/latest/index.html">yellowbrick road</a> to visualize feature importance</p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from yellowbrick.features import Rank2D
+visualizer = Rank2D(algorithm="pearson", size=(1080, 1080))
+visualizer.fit_transform(pd.get_dummies(df))
+visualizer.poof()
+</code></pre></div></div>
+
+<p class="output output_png"><img src="../images/lessons/Lesson4_AWSML_Modeling_59_0.png" alt="png" /></p>
+
+<h3 id="demo-aws-machine-learning-service">Demo AWS Machine Learning Service</h3>
+
+<ul>
+  <li>
+    <p><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/tutorial.html">Tutorial:  Amazon ML to Predict Reponses to a ML Offer</a></p>
+  </li>
+  <li>
+    <p>Create Training Datasource (Steps Below)</p>
+  </li>
+  <li>
+    <p>Prepare Data 
+ ** - Create S3 Bucket &amp; Create folder**
+  <img src="https://user-images.githubusercontent.com/58792/49109353-548a2080-f23f-11e8-8700-5fb512005655.png" alt="s3bucket" /></p>
+  </li>
+</ul>
+
+<p>**  - Upload CSV files**
+<img src="https://user-images.githubusercontent.com/58792/49109351-548a2080-f23f-11e8-82fa-ade76fe73bdc.png" alt="csv_file" /></p>
+
+<p>**  - Create Data Source **</p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49109714-45f03900-f240-11e8-8272-f65d4eafe2ca.png" alt="create data source" /></p>
+
+<p><strong>Infer the Schema</strong></p>
+
+<p>Amazon Machine Learning Service infers the proper schema</p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49111125-15120300-f244-11e8-9116-abeb5288fa3d.png" alt="Infer the Schema" /></p>
+
+<p><strong>Select the Target</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49111259-74701300-f244-11e8-94aa-124f9fb640c1.png" alt="target" /></p>
+
+<h2 id="43-train-a-model">4.3 Train a Model</h2>
+
+<h4 id="create-7030-split-and-train-model-in-sklearn">Create 70/30 Split and Train Model in sklearn</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>banking_df = pd.read_csv("https://raw.githubusercontent.com/noahgift/aws-ml-guide/master/data/banking.csv")
+banking_df.columns #y column will be predicted
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Index(['age', 'job', 'marital', 'education', 'default', 'housing', 'loan',
+       'contact', 'month', 'day_of_week', 'duration', 'campaign', 'pdays',
+       'previous', 'poutcome', 'emp_var_rate', 'cons_price_idx',
+       'cons_conf_idx', 'euribor3m', 'nr_employed', 'y'],
+      dtype='object')
+</code></pre></div></div>
+
+<h4 id="one-hot-encode-with-sklearn">One Hot Encode with sklearn</h4>
+
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer">One Hot Encode Categories</a></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_extraction import DictVectorizer
+
+dvec = DictVectorizer(sparse=False)
+vectorized_banking_df = dvec.fit_transform(df.transpose().to_dict().values())
+train, test = train_test_split(vectorized_banking_df, test_size=0.3)
+
+print(f" 70% Split data structure: {type(train)} and shape: {train.shape}")
+print(f" 30% Split data structure: {type(test)} and shape: {test.shape}")
+
+</code></pre></div></div>
+
+<div class="output output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 70% Split data structure: &lt;class 'numpy.ndarray'&gt; and shape: (28831, 64)
+ 30% Split data structure: &lt;class 'numpy.ndarray'&gt; and shape: (12357, 64)
+
+</code></pre></div></div>
+
+<h4 id="use-logistic-regression-to-train-model-on-70-train-data">Use Logistic Regression to train model on 70% train data</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">from</span> <span class="n">sklearn</span><span class="p">.</span><span class="n">linear_model</span> <span class="n">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">X</span> <span class="p">=</span> <span class="n">train</span><span class="p">[:,:-</span><span class="m">1</span><span class="p">]</span>  <span class="p">#</span><span class="n">drop</span> <span class="n">the</span> <span class="n">predict</span> <span class="s1">'y'</span>
+<span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s2">" Drop last column in X {X.shape}"</span><span class="p">)</span>
+<span class="n">Y</span> <span class="p">=</span> <span class="n">train</span><span class="p">[:,</span> <span class="p">-</span><span class="m">1</span><span class="p">]</span> <span class="p">#</span><span class="n">select</span> <span class="n">only</span> <span class="n">predict</span> <span class="n">variable</span> <span class="s1">'y'</span>
+<span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s2">" Select last column in Y {Y.shape}"</span><span class="p">)</span>
+<span class="k">model</span> <span class="p">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="k">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="output output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Drop last column in X (28831, 63)
+ Select last column in Y (28831,)
+
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='warn',
+          tol=0.0001, verbose=0, warm_start=False)
+</code></pre></div></div>
+
+<h3 id="demo-aws-machine-learning-service-1">Demo AWS Machine Learning Service</h3>
+
+<ul>
+  <li>
+    <p><a href="https://docs.aws.amazon.com/machine-learning/latest/dg/tutorial.html">Tutorial (Continued): Amazon ML to Predict Reponses to a ML Offer</a></p>
+  </li>
+  <li>
+    <p><strong>Create ML Model</strong></p>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49115892-ddf61e80-f250-11e8-9ec4-d0576e7c1e87.png" alt="ML model settings" /></p>
+
+<h2 id="44-evaluate-a-model">4.4 Evaluate a Model</h2>
+
+<h4 id="classification-model-evaluation-metrics">Classification Model Evaluation Metrics</h4>
+
+<ul>
+  <li>
+    <p><strong>Precision</strong></p>
+  </li>
+  <li>
+    <p><strong>Recall</strong></p>
+  </li>
+  <li>
+    <p><strong>F1</strong>:  harmonic mean of precision and recall</p>
+  </li>
+  <li>
+    <p><strong>AUC (<a href="https://docs.aws.amazon.com/machine-learning/latest/dg/binary-model-insights.html#measuring-ml-model-accuracy">Area Under the Curve</a>)</strong></p>
+  </li>
+</ul>
+
+<p>Measures the ability of a model to predict higher scores for positive observations vs negative observations.</p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49120374-274e6a00-f261-11e8-80da-7128e9feaeb6.png" alt="AUC Example from AWS" /></p>
+
+<h4 id="using-yellowbrick-road-to-evaluate-model">Using Yellowbrick road to evaluate model</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from yellowbrick.classifier import ClassificationReport
+from sklearn.linear_model import LogisticRegression
+
+visualizer = ClassificationReport(model)
+visualizer.fit(X, Y)
+visualizer.score(X, Y)
+visualizer.poof()
+</code></pre></div></div>
+
+<p class="output output_png"><img src="../images/lessons/Lesson4_AWSML_Modeling_78_0.png" alt="png" /></p>
+
+<h4 id="generate-cross-validated-precision-and-recall">Generate Cross-Validated Precision and Recall</h4>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import precision_score, recall_score
+
+y_train_pred = cross_val_predict(model, X, Y, cv=3)
+</code></pre></div></div>
+
+<p><strong>Precision</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>precision_score(Y, y_train_pred)
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.6702619414483821
+</code></pre></div></div>
+
+<p><strong>Recall</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>recall_score(Y, y_train_pred)
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.3987167736021998
+</code></pre></div></div>
+
+<p><strong>F1 Score</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from sklearn.metrics import f1_score
+</code></pre></div></div>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f1_score(Y, y_train_pred)
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.5000000000000001
+</code></pre></div></div>
+
+<p><strong>AUC</strong></p>
+
+<div class="input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from sklearn.metrics import roc_auc_score
+
+roc_auc_score(Y, y_train_pred)
+</code></pre></div></div>
+
+<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.68679871859545
+</code></pre></div></div>
+
+<h3 id="demo-aws-machine-learning-service-2">Demo AWS Machine Learning Service</h3>
+
+<p><strong>Evaluatate Model</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49120960-a80e6580-f263-11e8-9413-98b52b811476.png" alt="Evaluating Model" /></p>
+
+<p><strong>Explore Performance</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/58792/49121094-13583780-f264-11e8-9e17-5e0c20e23841.png" alt="Explore Performance" /></p>
+
+<ul>
+  <li>Evaluating Model</li>
+  <li>Explore Performance</li>
+</ul>
+
+<h2 id="45-tune-a-model">4.5 Tune a Model</h2>
+
+<h3 id="demo-aws-machine-learning-service-3">[Demo] AWS Machine Learning Service</h3>
+
+<ul>
+  <li>show tradeoffs</li>
+</ul>
+
+<h2 id="46-understand-ml-inference">4.6 Understand ML Inference</h2>
+
+<h3 id="demo-aws-machine-learning-service-4">[Demo] AWS Machine Learning Service</h3>
+
+<ul>
+  <li>Refers to prediction</li>
+  <li>Sagemaker can auto-scale inference endpoints</li>
+  <li>Also Amazon Elastic Inference service:
+    <ul>
+      <li>Can save up to 75% of cost of inference (predictions)</li>
+      <li>Attaches to Sagemaker and EC2</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="47-understand-deep-learning">4.7 Understand Deep Learning</h2>
+
+<h3 id="intro-to-deep-learning">Intro to Deep Learning</h3>
+
+<p><a href="https://www.aws.training/learningobject/video?id=16439&amp;trk=gs_card">Intro to Deep Learning on AWS Video</a></p>
+
+<h4 id="brief-history-of-neural-networks">Brief History of Neural Networks</h4>
+
+<ul>
+  <li>1950-1998:  Academic Activity</li>
+  <li>1998-2007:  AI Winter</li>
+  <li>2007-Today:  “The GPU Era” (Moore’s law over 2005)</li>
+  <li>Deep Learning is a “multi-layered” feed-forward neural network</li>
+</ul>
+
+<h4 id="perform-storm-for-deep-learning">Perform Storm for Deep Learning</h4>
+
+<ul>
+  <li>Cloud Computing</li>
+  <li>End of Moore’s Law (forces more GPU adoption)</li>
+  <li>Elastic Storage and Compute</li>
+  <li>Proliferation of data:  social networks, etc</li>
+</ul>
+
+<h4 id="what-is-a-neural-network">What is a Neural Network?</h4>
+
+<p><img src="https://user-images.githubusercontent.com/58792/48964488-45645380-ef5d-11e8-8c84-f3ab8b238689.png" alt="DNN" /></p>
+
+<ul>
+  <li>Can be “Deep” Neural Network (multi-layered), but optional</li>
+  <li>Simple functions than be collectively trained (in layers) to learn complex functions</li>
+  <li>Input Layer –&gt; Hidden Layer(s) —&gt; Output Layer</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/58792/48964874-08e92580-ef66-11e8-9c91-4e16ef98ed1a.png" alt="RNN" /></p>
+
+<ul>
+  <li>RNN is used sequences like:
+    <ul>
+      <li>text</li>
+      <li>speech</li>
+      <li>translation</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="deep-learning-use-cases">Deep Learning Use Cases</h4>
+
+<ul>
+  <li>Text analysis (NLP)
+    <ul>
+      <li>insider trading</li>
+      <li>sentiment analysis</li>
+      <li>regulatory compliance</li>
+      <li>brand affinity</li>
+      <li>intent analysis</li>
+    </ul>
+  </li>
+  <li>Time Series
+    <ul>
+      <li>financial</li>
+      <li>log analysis</li>
+      <li>supply chain</li>
+      <li>IoT</li>
+    </ul>
+  </li>
+  <li>Recommendation Engines
+    <ul>
+      <li>Social Meida</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="deep-learning-amis">Deep Learning AMIs</h3>
+
+<ul>
+  <li>Three Styles of Deep Learning AMIs
+    <ul>
+      <li>Conda-based AMI</li>
+      <li>Base AMI</li>
+      <li>AMIs with source code</li>
+    </ul>
+  </li>
+  <li>Available “Pay as you Go” (On Demand)</li>
+  <li>Available “Spot Instance”</li>
+  <li>Can perform <a href="https://docs.aws.amazon.com/dlami/latest/devguide/keras-mxnet.html">“Multi-GPU training”</a></li>
+  <li>Preloaded with Frameworks
+<img src="https://user-images.githubusercontent.com/58792/48965039-24562f80-ef6a-11e8-9dc2-1b384bbfc610.png" alt="DL Frameworks" /></li>
+</ul>
+
+
+              <nav class="c-page__nav">
+  
+    
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="/aws-ml-guide/lessons/Lesson3_AWSML_Exploratory_Data_Analysis">
+      〈 <span class="u-margin-right-tiny"></span> Lesson 3 - Amazon Machine Learning...
+    </a>
+  
+
+  
+    
+    <a id="js-page__nav__next" class="c-page__nav__next" href="/aws-ml-guide/lessons/Lesson5_AWSML_Operationalization">
+      Lesson 5 - Amazon Machine Learning... <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  
+</nav>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>
