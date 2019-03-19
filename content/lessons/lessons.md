@@ -2,6 +2,8 @@
 
 There are a total of seven lessons on AWS.  You should use this interactive guide as a companion to the video.  The topics covered in the video are:
 
+![awsmlvideo](https://user-images.githubusercontent.com/58792/54616901-a4bf0580-4a1d-11e9-8d46-a9d982b96f07.png)
+
 * [Watch Lesson 1:  AWS Machine Learning-Speciality (MLS) Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_00)
 * [Watch Lesson 2:  Data Engineering for ML on AWS Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_02_00)
 * [Watch Lesson 3:  Exploratory Data Analysis on AWS Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_03_00)
