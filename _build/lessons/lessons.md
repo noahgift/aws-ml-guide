@@ -4,13 +4,15 @@ prev_page:
   url: /https://github.com/noahgift/aws-ml-guide
   title: 'GitHub repository'
 next_page:
-  url: /lessons/Lesson1-AWSML-Overview
+  url: /lessons/Lesson1_AWSML_Overview
   title: 'Lesson 1 - AWS Machine Learning Certification-Overview'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # AWS Certified Machine Learning-Specialty (ML-S) Lessons
 
 There are a total of seven lessons on AWS.  You should use this interactive guide as a companion to the video.  The topics covered in the video are:
+
+![awsmlvideo](https://user-images.githubusercontent.com/58792/54616901-a4bf0580-4a1d-11e9-8d46-a9d982b96f07.png)
 
 * [Watch Lesson 1:  AWS Machine Learning-Speciality (MLS) Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_00)
 * [Watch Lesson 2:  Data Engineering for ML on AWS Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_02_00)

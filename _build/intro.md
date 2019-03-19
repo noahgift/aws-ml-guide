@@ -12,6 +12,9 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 An interactive Jupyter and colab notebook that prepares you to take the AWS Machine Learning Certification exam.  This book is based on a Video by Pearson <a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597">AWS Certified Machine Learning-Specialty (ML-S)</a>.  This Jupyter book and video was created by <a href="https://noahgift.com/">Noah Gift</a>.
 
+![awsmlvideo](https://user-images.githubusercontent.com/58792/54616901-a4bf0580-4a1d-11e9-8d46-a9d982b96f07.png)
+
+
 You should use this interactive guide as a companion to the video.  The topics covered in the video are:
 
 * [Lessson 1:  AWS Machine Learning-Speciality (MLS)](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_00)
