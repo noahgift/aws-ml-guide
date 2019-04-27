@@ -4,6 +4,7 @@ An interactive Jupyter and colab notebook that prepares you to take the AWS Mach
 
 ![awsmlvideo](https://user-images.githubusercontent.com/58792/54616901-a4bf0580-4a1d-11e9-8d46-a9d982b96f07.png)
 
+[Practice Tests](https://learning.oreilly.com/learning-paths/aws-certified-machine/9780135941065/) are available in the learning path AWS Certified Machine Learning-Specialty ML-S and Practice Test, 1/e.
 
 You should use this interactive guide as a companion to the video.  The topics covered in the video are:
 
