@@ -17,6 +17,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 # Lesson 1 AWS Machine Learning-Specialty (ML-S) Certification
 
+**Prepare for this material by first taking the [AWS Certified Cloud Practitioner 2020-Real World & Pragmatic Course](https://www.udemy.com/course/aws-certified-cloud-practitioner-2020-real-world-pragmatic/?referralCode=CAC679A7D08212773428)**
+
 [Watch Lesson 1:  AWS Machine Learning-Speciality (MLS) Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597/9780135556597-ACML_01_01_00)
 
 ## Pragmatic AI Labs
