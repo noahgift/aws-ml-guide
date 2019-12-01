@@ -4,6 +4,10 @@
 
 [Interactive Jupyter/Colab book companion](https://noahgift.github.io/aws-ml-guide/) to [AWS Certified Machine Learning-Speciality Video](https://learning.oreilly.com/videos/aws-certified-machine/9780135556597)
 
+## Recommended Preparation
+
+Please take the [AWS Certified Cloud Practitioner 2020-Real World & Pragmatic [Udemy Course]](https://www.udemy.com/course/aws-certified-cloud-practitioner-2020-real-world-pragmatic/?referralCode=CAC679A7D08212773428).
+
 ### Additional Related Topics from Noah Gift
 
 His most recent books are:
