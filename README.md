@@ -30,3 +30,9 @@ His most recent online courses are:
 *   [Microservices with this Udacity DevOps Nanodegree (Udacity, 2019)](https://www.udacity.com/course/cloud-dev-ops-nanodegree--nd9991)
 *   [Command Line Automation in Python (DataCamp, 2019)](https://www.datacamp.com/instructors/ndgift)
 *   [AWS Certified Cloud Practitioner 2020-Real World & Pragmatic](https://www.udemy.com/course/aws-certified-cloud-practitioner-2020-real-world-pragmatic/?referralCode=CAC679A7D08212773428).
+
+Mailing List and Newsletter:
+
+*   [Get the latest content and updates from Pragmatic AI Labs:  Subscribe to the mailing list!](https://newsletter.paiml.com/social)
+
+
