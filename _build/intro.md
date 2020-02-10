@@ -10,6 +10,21 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 ---
 # AWS Certified Machine Learning-Specialty (ML-S)
 
+## READ THE BOOK!
+
+## Cloud Computing for Data Analysis
+#### *A practical guide to Data Science, Machine Learning Engineering and Data Engineering*
+#### Publisher:  Pragmatic AI Labs
+#### Release Date: (In Progress: 2020) 
+
+![Cloud Computing for Data Analysis](https://d2sofvawe08yqg.cloudfront.net/cloud4data/hero2x?1578933644)
+
+* [Buy a copy of the book on Lean Pub](http://leanpub.com/cloud4data/c/QQHmxC0wrbo5) 
+
+### Abstract
+This book is designed to give you a comprehensive view of cloud computing including Big Data and Machine Learning. A variety of learning resources will be used including interactive labs on Cloud Platforms (Google, AWS, Azure) using Python. This is a project-based book with extensive hands-on assignments.
+
+
 ## Recommended Preparation
 
 Please take the [AWS Certified Cloud Practitioner 2020-Real World & Pragmatic [Udemy Course]](https://www.udemy.com/course/aws-certified-cloud-practitioner-2020-real-world-pragmatic/?referralCode=CAC679A7D08212773428).
