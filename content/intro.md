@@ -17,7 +17,7 @@ This book is designed to give you a comprehensive view of cloud computing includ
 
 ## Recommended Preparation
 
-Please take the [AWS Certified Cloud Practitioner 2020-Real World & Pragmatic [Udemy Course]](https://www.udemy.com/course/aws-certified-cloud-practitioner-2020-real-world-pragmatic/?referralCode=CAC679A7D08212773428).
+* You can take a [Free Course I created here](https://store.paiml.com/aws-cloud-practitioner)
 
 An interactive Jupyter and colab notebook that prepares you to take the AWS Machine Learning Certification exam.  This book is based on a Video by Pearson <a href="https://learning.oreilly.com/videos/aws-certified-machine/9780135556597">AWS Certified Machine Learning-Specialty (ML-S)</a>.  This Jupyter book and video was created by <a href="https://noahgift.com/">Noah Gift</a>.
 
