@@ -6,7 +6,7 @@
 
 ## Recommended Preparation
 
-Please take the [AWS Certified Cloud Practitioner 2020-Real World & Pragmatic [Udemy Course]](https://www.udemy.com/course/aws-certified-cloud-practitioner-2020-real-world-pragmatic/?referralCode=CAC679A7D08212773428).
+* You can take a [Free Course I created here on AWS Cloud Practitioner Exam](https://store.paiml.com/aws-cloud-practitioner).  
 
 ### Additional Related Topics from Noah Gift
 
