@@ -10,7 +10,25 @@
 
 ### Additional Related Topics from Noah Gift
 
+#### Next Steps:  Take Coursera MLOps Course
+
+![cloud-specialization](https://user-images.githubusercontent.com/58792/121041040-650ca180-c780-11eb-956e-8d1ecb134641.png)
+
+* [Take the Specialization](https://www.coursera.org/learn/cloud-computing-foundations-duke?specialization=building-cloud-computing-solutions-at-scale)
+* [Cloud Computing Foundations](https://www.coursera.org/learn/cloud-computing-foundations-duke?specialization=building-cloud-computing-solutions-at-scale)
+* [Cloud Virtualization, Containers and APIs](https://www.coursera.org/learn/cloud-virtualization-containers-api-duke?specialization=building-cloud-computing-solutions-at-scale)
+* [Cloud Data Engineering](https://www.coursera.org/learn/cloud-data-engineering-duke?specialization=building-cloud-computing-solutions-at-scale)
+* [Cloud Machine Learning Engineering and MLOps](https://www.coursera.org/learn/cloud-machine-learning-engineering-mlops-duke?specialization=building-cloud-computing-solutions-at-scale)
+
+
 His most recent books are:
+
+# Python MLOps Cookbook 
+This is an example of a Containerized Flask Application the can be the core ingredient in many "recipes", i.e. deploy targets.
+
+![mlops-color](https://user-images.githubusercontent.com/58792/121539559-c6787e80-c9d3-11eb-9f48-5d25924fad25.png)
+* [Read Practical MLOps Online](https://learning.oreilly.com/library/view/practical-mlops/9781098103002/)
+* [Purchase Practical MLOps](https://www.amazon.com/Practical-MLOps-Operationalizing-Machine-Learning/dp/1098103017)
 
 *   [Pragmatic A.I.:   An introduction to Cloud-Based Machine Learning (Pearson, 2018)](https://www.amazon.com/Pragmatic-AI-Introduction-Cloud-Based-Analytics/dp/0134863860)
 *   [Python for DevOps (O'Reilly, 2020)](https://www.amazon.com/Python-DevOps-Ruthlessly-Effective-Automation/dp/149205769X).
