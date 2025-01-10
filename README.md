@@ -1,3 +1,20 @@
+## 🎓 Pragmatic AI Labs | Join 1M+ ML Engineers
+
+### 🔥 Hot Course Offers:
+* 🤖 [Master GenAI Engineering](https://ds500.paiml.com/learn/course/0bbb5/) - Build Production AI Systems
+* 🦀 [Learn Professional Rust](https://ds500.paiml.com/learn/course/g6u1k/) - Industry-Grade Development
+* 📊 [AWS AI & Analytics](https://ds500.paiml.com/learn/course/31si1/) - Scale Your ML in Cloud
+* ⚡ [Production GenAI on AWS](https://ds500.paiml.com/learn/course/ehks1/) - Deploy at Enterprise Scale
+* 🛠️ [Rust DevOps Mastery](https://ds500.paiml.com/learn/course/ex8eu/) - Automate Everything
+
+### 🚀 Level Up Your Career:
+* 💼 [Production ML Program](https://paiml.com) - Complete MLOps & Cloud Mastery
+* 🎯 [Start Learning Now](https://ds500.paiml.com) - Fast-Track Your ML Career
+* 🏢 Trusted by Fortune 500 Teams
+
+Learn end-to-end ML engineering from industry veterans at [PAIML.COM](https://paiml.com)
+
+
 #  AWS Certified Machine Learning-Specialty (ML-S) Guide
 
 ![awsmlbook](https://user-images.githubusercontent.com/58792/54616901-a4bf0580-4a1d-11e9-8d46-a9d982b96f07.png)
